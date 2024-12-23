@@ -37,4 +37,8 @@ public class Screen {
     @OneToMany(mappedBy = "screen", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Seat> seats = new ArrayList<>();
 
+    @OneToMany(mappedBy = "screen", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<ShowTime> showTimes = new ArrayList<>();
+
+
 }

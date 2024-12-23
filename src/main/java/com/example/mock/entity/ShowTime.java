@@ -24,4 +24,12 @@ public class ShowTime {
     private Timestamp endTime;
     private int price;
     private boolean isActive = true;
+
+    @ManyToOne
+    @JoinColumn(name = "movie_id", referencedColumnName = "movieId", nullable = false)
+    private Movie movie;
+
+    @ManyToOne
+    @JoinColumn(name = "screen_id", referencedColumnName = "screenId", nullable = false)
+    private Screen screen;
 }
