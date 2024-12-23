@@ -24,4 +24,11 @@ public class Review {
     private String reviewText;
     private Timestamp reviewTime;
 
+    @ManyToOne
+    @JoinColumn(name = "user_id", referencedColumnName = "userId", nullable = false)
+    private User user;
+
+    @ManyToOne
+    @JoinColumn(name = "movie_id", referencedColumnName = "movieId", nullable = false)
+    private Movie movie;
 }
