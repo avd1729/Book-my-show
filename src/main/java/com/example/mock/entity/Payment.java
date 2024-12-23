@@ -29,4 +29,8 @@ public class Payment {
     private PaymentStatus paymentStatus;
 
     private Timestamp paymentTime;
+
+    @OneToOne
+    @JoinColumn(name = "reservation_id", referencedColumnName = "reservationId", nullable = false)
+    private Reservation reservation;
 }

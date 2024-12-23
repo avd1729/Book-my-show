@@ -44,4 +44,7 @@ public class Reservation {
 
     @OneToMany(mappedBy = "reservation", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<ReservedSeat> reservedSeats = new ArrayList<>();
+
+    @OneToOne(mappedBy = "reservation")
+    private Payment payment;
 }
