@@ -28,7 +28,7 @@ public class Theater {
     private int totalScreens;
     private boolean isActive = true;
 
-    @OneToMany(mappedBy = "theaters", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "theater", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Screen> screens = new ArrayList<>();
 
 }
