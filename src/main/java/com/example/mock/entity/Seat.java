@@ -27,4 +27,8 @@ public class Seat {
 
     private boolean isActive = true;
 
+    @ManyToOne
+    @JoinColumn(name = "screen_id", referencedColumnName = "screenId", nullable = false)
+    private Screen screen;
+
 }
