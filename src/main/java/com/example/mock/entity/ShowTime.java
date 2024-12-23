@@ -7,6 +7,8 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.sql.Timestamp;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Getter
@@ -32,4 +34,7 @@ public class ShowTime {
     @ManyToOne
     @JoinColumn(name = "screen_id", referencedColumnName = "screenId", nullable = false)
     private Screen screen;
+
+    @OneToMany(mappedBy = "showTime", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Reservation> reservations = new ArrayList<>();
 }

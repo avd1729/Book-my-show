@@ -7,6 +7,8 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.sql.Timestamp;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Getter
@@ -28,4 +30,6 @@ public class User {
     private Timestamp createdAt;
     private Timestamp updatedAt;
 
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Reservation> reservations = new ArrayList<>();
 }

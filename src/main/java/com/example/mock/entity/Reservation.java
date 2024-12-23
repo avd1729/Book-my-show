@@ -32,4 +32,11 @@ public class Reservation {
     @Enumerated(EnumType.STRING)
     private PaymentStatus paymentStatus;
 
+    @ManyToOne
+    @JoinColumn(name = "user_id", referencedColumnName = "userId", nullable = false)
+    private User user;
+
+    @ManyToOne
+    @JoinColumn(name = "showtime_id", referencedColumnName = "showtimeId", nullable = false)
+    private ShowTime showTime;
 }
