@@ -22,4 +22,10 @@ public class ReservedSeat {
     @ManyToOne
     @JoinColumn(name = "reservation_id", referencedColumnName = "reservationId", nullable = false)
     private Reservation reservation;
+
+    @OneToOne
+    @JoinColumn(name = "seat_id", referencedColumnName = "seatId", nullable = false)
+    private Seat seat;
+
+
 }
