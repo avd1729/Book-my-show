@@ -18,4 +18,8 @@ public class ReservedSeat {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int reservedSeatId;
     private int price;
+
+    @ManyToOne
+    @JoinColumn(name = "reservation_id", referencedColumnName = "reservationId", nullable = false)
+    private Reservation reservation;
 }
