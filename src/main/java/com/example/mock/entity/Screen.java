@@ -27,4 +27,8 @@ public class Screen {
 
     private boolean isActive = true;
 
+    @ManyToOne
+    @JoinColumn(name = "theater_id", referencedColumnName = "theaterId", nullable = false)
+    private Theater theater;
+
 }
