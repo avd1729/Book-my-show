@@ -30,6 +30,7 @@ public class Movie {
     private Date releaseDate;
     private Date endDate;
     private String posterUrl;
+    private String backdropUrl;
     private String trailerUrl;
     private String language;
 
