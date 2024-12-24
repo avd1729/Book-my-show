@@ -26,7 +26,7 @@ public class Movie {
     private String description;
     private String genre;
     private int duration;
-    private Double rating;
+    private String rating;
     private Date releaseDate;
     private Date endDate;
     private String posterUrl;
