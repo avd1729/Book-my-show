@@ -31,6 +31,7 @@ public class Movie {
     private Date endDate;
     private String posterUrl;
     private String trailerUrl;
+    private String language;
 
     @OneToMany(mappedBy = "movie", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<ShowTime> showTimes = new ArrayList<>();
