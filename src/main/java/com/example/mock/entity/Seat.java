@@ -16,7 +16,7 @@ import lombok.Setter;
 public class Seat {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long seatId;
 
     private String seatRow;
