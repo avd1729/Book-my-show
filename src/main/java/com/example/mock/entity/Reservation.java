@@ -22,29 +22,29 @@ public class Reservation {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int reservationId;
+    public int reservationId;
 
-    private Timestamp reservationTime;
-
-    @Enumerated(EnumType.STRING)
-    private ReservationStatus reservationStatus;
-
-    private int totalAmount;
+    public Timestamp reservationTime;
 
     @Enumerated(EnumType.STRING)
-    private PaymentStatus paymentStatus;
+    public ReservationStatus reservationStatus;
+
+    public int totalAmount;
+
+    @Enumerated(EnumType.STRING)
+    public PaymentStatus paymentStatus;
 
     @ManyToOne
     @JoinColumn(name = "user_id", referencedColumnName = "userId", nullable = false)
-    private User user;
+    public User user;
 
     @ManyToOne
     @JoinColumn(name = "showtime_id", referencedColumnName = "showtimeId", nullable = false)
-    private ShowTime showTime;
+    public ShowTime showTime;
 
     @OneToMany(mappedBy = "reservation", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<ReservedSeat> reservedSeats = new ArrayList<>();
+    public List<ReservedSeat> reservedSeats = new ArrayList<>();
 
     @OneToOne(mappedBy = "reservation")
-    private Payment payment;
+    public Payment payment;
 }

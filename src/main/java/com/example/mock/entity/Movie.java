@@ -20,23 +20,23 @@ public class Movie {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int movieId;
+    public int movieId;
 
-    private String title;
-    private String description;
-    private String genre;
-    private int duration;
-    private String rating;
-    private Date releaseDate;
-    private Date endDate;
-    private String posterUrl;
-    private String backdropUrl;
-    private String trailerUrl;
-    private String language;
-
-    @OneToMany(mappedBy = "movie", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<ShowTime> showTimes = new ArrayList<>();
+    public String title;
+    public String description;
+    public String genre;
+    public int duration;
+    public String rating;
+    public Date releaseDate;
+    public Date endDate;
+    public String posterUrl;
+    public String backdropUrl;
+    public String trailerUrl;
+    public String language;
 
     @OneToMany(mappedBy = "movie", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Review> reviews = new ArrayList<>();
+    public List<ShowTime> showTimes = new ArrayList<>();
+
+    @OneToMany(mappedBy = "movie", cascade = CascadeType.ALL, orphanRemoval = true)
+    public List<Review> reviews = new ArrayList<>();
 }

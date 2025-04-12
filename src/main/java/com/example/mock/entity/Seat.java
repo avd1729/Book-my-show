@@ -17,21 +17,21 @@ public class Seat {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long seatId;
+    public long seatId;
 
-    private String seatRow;
-    private int seatNumber;
+    public String seatRow;
+    public int seatNumber;
 
     @Enumerated(EnumType.STRING)
-    private SeatType seatType;
+    public SeatType seatType;
 
-    private boolean isActive = true;
+    public boolean isActive = true;
 
     @ManyToOne
     @JoinColumn(name = "screen_id", referencedColumnName = "screenId", nullable = false)
-    private Screen screen;
+    public Screen screen;
 
     @OneToOne(mappedBy = "seat")
-    private ReservedSeat reservedSeat;
+    public ReservedSeat reservedSeat;
 
 }

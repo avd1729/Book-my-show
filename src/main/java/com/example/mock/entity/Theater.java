@@ -19,16 +19,16 @@ public class Theater {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int theaterId;
-    private String theaterName;
-    private String theaterAddress;
-    private String theaterCity;
-    private String theaterState;
-    private int zipCode;
-    private int totalScreens;
-    private boolean isActive = true;
+    public int theaterId;
+    public String theaterName;
+    public String theaterAddress;
+    public String theaterCity;
+    public String theaterState;
+    public int zipCode;
+    public int totalScreens;
+    public boolean isActive = true;
 
     @OneToMany(mappedBy = "theater", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Screen> screens = new ArrayList<>();
+    public List<Screen> screens = new ArrayList<>();
 
 }

@@ -16,16 +16,16 @@ public class ReservedSeat {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int reservedSeatId;
-    private int price;
+    public int reservedSeatId;
+    public int price;
 
     @ManyToOne
     @JoinColumn(name = "reservation_id", referencedColumnName = "reservationId", nullable = false)
-    private Reservation reservation;
+    public Reservation reservation;
 
     @OneToOne
     @JoinColumn(name = "seat_id", referencedColumnName = "seatId", nullable = false)
-    private Seat seat;
+    public Seat seat;
 
 
 }

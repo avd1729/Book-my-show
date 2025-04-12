@@ -18,17 +18,17 @@ public class Review {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int reviewId;
+    public int reviewId;
 
-    private Double rating;
-    private String reviewText;
-    private Timestamp reviewTime;
+    public Double rating;
+    public String reviewText;
+    public Timestamp reviewTime;
 
     @ManyToOne
     @JoinColumn(name = "user_id", referencedColumnName = "userId", nullable = false)
-    private User user;
+    public User user;
 
     @ManyToOne
     @JoinColumn(name = "movie_id", referencedColumnName = "movieId", nullable = false)
-    private Movie movie;
+    public Movie movie;
 }

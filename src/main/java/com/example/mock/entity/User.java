@@ -20,29 +20,29 @@ public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int userId;
+    public int userId;
 
-    private String username;
-    private boolean isAdmin = false;
-    private String email;
-    private String password;
-    private String firstName;
-    private String lastName;
-    private String phoneNumber;
-    private Timestamp createdAt;
-    private Timestamp updatedAt;
-
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Reservation> reservations = new ArrayList<>();
+    public String username;
+    public boolean isAdmin = false;
+    public String email;
+    public String password;
+    public String firstName;
+    public String lastName;
+    public String phoneNumber;
+    public Timestamp createdAt;
+    public Timestamp updatedAt;
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Review> reviews = new ArrayList<>();
+    public List<Reservation> reservations = new ArrayList<>();
+
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+    public List<Review> reviews = new ArrayList<>();
 
     public String getUsername(){
         return username;
     }
 
-    public String getPassword(){
+    public String getPassword() {
         return password;
     }
 }

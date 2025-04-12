@@ -20,21 +20,21 @@ public class ShowTime {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int showtimeId;
+    public int showtimeId;
 
-    private Timestamp startTime;
-    private Timestamp endTime;
-    private int price;
-    private boolean isActive = true;
+    public Timestamp startTime;
+    public Timestamp endTime;
+    public int price;
+    public boolean isActive = true;
 
     @ManyToOne
     @JoinColumn(name = "movie_id", referencedColumnName = "movieId", nullable = false)
-    private Movie movie;
+    public Movie movie;
 
     @ManyToOne
     @JoinColumn(name = "screen_id", referencedColumnName = "screenId", nullable = false)
-    private Screen screen;
+    public Screen screen;
 
     @OneToMany(mappedBy = "showTime", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Reservation> reservations = new ArrayList<>();
+    public List<Reservation> reservations = new ArrayList<>();
 }

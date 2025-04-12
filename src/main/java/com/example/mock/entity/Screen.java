@@ -20,25 +20,25 @@ public class Screen {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int screenId;
+    public int screenId;
 
-    private int screenNumber;
-    private int seatingCapacity;
+    public int screenNumber;
+    public int seatingCapacity;
 
     @Enumerated(EnumType.STRING)
-    private ScreenType screenType;
+    public ScreenType screenType;
 
-    private boolean isActive = true;
+    public boolean isActive = true;
 
     @ManyToOne
     @JoinColumn(name = "theater_id", referencedColumnName = "theaterId", nullable = false)
-    private Theater theater;
+    public Theater theater;
 
     @OneToMany(mappedBy = "screen", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Seat> seats = new ArrayList<>();
+    public List<Seat> seats = new ArrayList<>();
 
     @OneToMany(mappedBy = "screen", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<ShowTime> showTimes = new ArrayList<>();
+    public List<ShowTime> showTimes = new ArrayList<>();
 
 
 }
