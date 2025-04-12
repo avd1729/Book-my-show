@@ -31,18 +31,24 @@ public class JwtUtil {
         return extractExpiration(token).before(new Date());
     }
 
-    public String generateToken(String username) {
-        return createToken(username);
+    public String generateToken(String username, boolean isAdmin) {
+        return createToken(username, isAdmin);
     }
 
-    private String createToken(String subject) {
+    private String createToken(String subject, boolean isAdmin) {
         return Jwts.builder()
                 .setSubject(subject)
+                .claim("isAdmin", isAdmin)
                 .setIssuedAt(new Date(System.currentTimeMillis()))
                 .setExpiration(new Date(System.currentTimeMillis() + 1000 * 60 * 60 * 10)) // 10 hours
                 .signWith(SignatureAlgorithm.HS256, SECRET_KEY)
                 .compact();
     }
+
+    public boolean extractIsAdmin(String token) {
+        return extractAllClaims(token).get("isAdmin", Boolean.class);
+    }
+
 
     public Boolean validateToken(String token, String username) {
         final String extractedUsername = extractUsername(token);
