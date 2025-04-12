@@ -7,10 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api/theater")
@@ -23,6 +20,13 @@ public class TheaterController {
     @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<Theater> addTheater(@RequestBody TheaterDTO theaterDTO){
         Theater result = theaterService.addTheater(theaterDTO);
+        return ResponseEntity.status(HttpStatus.CREATED).body(result);
+    }
+
+    @PutMapping("/update/{id}")
+    @PreAuthorize("hasRole('ADMIN')")
+    public ResponseEntity<Theater> updateTheater(@RequestBody TheaterDTO theaterDTO, @PathVariable Integer id){
+        Theater result = theaterService.updateTheater(theaterDTO, id);
         return ResponseEntity.status(HttpStatus.CREATED).body(result);
     }
 }

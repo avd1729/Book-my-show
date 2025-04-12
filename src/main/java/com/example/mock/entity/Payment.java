@@ -1,6 +1,7 @@
 package com.example.mock.entity;
 
 import com.example.mock.enums.PaymentStatus;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -30,6 +31,7 @@ public class Payment {
 
     public Timestamp paymentTime;
 
+    @JsonIgnore
     @OneToOne
     @JoinColumn(name = "reservation_id", referencedColumnName = "reservationId", nullable = false)
     public Reservation reservation;

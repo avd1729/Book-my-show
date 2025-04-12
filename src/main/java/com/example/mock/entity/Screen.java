@@ -1,6 +1,7 @@
 package com.example.mock.entity;
 
 import com.example.mock.enums.ScreenType;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -30,13 +31,16 @@ public class Screen {
 
     public boolean isActive = true;
 
+    @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "theater_id", referencedColumnName = "theaterId", nullable = false)
     public Theater theater;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "screen", cascade = CascadeType.ALL, orphanRemoval = true)
     public List<Seat> seats = new ArrayList<>();
 
+    @JsonIgnore
     @OneToMany(mappedBy = "screen", cascade = CascadeType.ALL, orphanRemoval = true)
     public List<ShowTime> showTimes = new ArrayList<>();
 

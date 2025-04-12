@@ -1,6 +1,7 @@
 package com.example.mock.entity;
 
 import com.example.mock.enums.SeatType;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -27,10 +28,12 @@ public class Seat {
 
     public boolean isActive = true;
 
+    @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "screen_id", referencedColumnName = "screenId", nullable = false)
     public Screen screen;
 
+    @JsonIgnore
     @OneToOne(mappedBy = "seat")
     public ReservedSeat reservedSeat;
 

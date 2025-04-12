@@ -2,6 +2,7 @@ package com.example.mock.entity;
 
 import com.example.mock.enums.PaymentStatus;
 import com.example.mock.enums.ReservationStatus;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -34,17 +35,21 @@ public class Reservation {
     @Enumerated(EnumType.STRING)
     public PaymentStatus paymentStatus;
 
+    @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "user_id", referencedColumnName = "userId", nullable = false)
     public User user;
 
+    @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "showtime_id", referencedColumnName = "showtimeId", nullable = false)
     public ShowTime showTime;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "reservation", cascade = CascadeType.ALL, orphanRemoval = true)
     public List<ReservedSeat> reservedSeats = new ArrayList<>();
 
+    @JsonIgnore
     @OneToOne(mappedBy = "reservation")
     public Payment payment;
 }

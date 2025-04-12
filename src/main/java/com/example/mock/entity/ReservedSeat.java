@@ -1,5 +1,6 @@
 package com.example.mock.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -19,10 +20,12 @@ public class ReservedSeat {
     public int reservedSeatId;
     public int price;
 
+    @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "reservation_id", referencedColumnName = "reservationId", nullable = false)
     public Reservation reservation;
 
+    @JsonIgnore
     @OneToOne
     @JoinColumn(name = "seat_id", referencedColumnName = "seatId", nullable = false)
     public Seat seat;

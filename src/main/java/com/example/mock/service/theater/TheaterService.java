@@ -28,4 +28,28 @@ public class TheaterService implements ITheaterService{
             throw new RuntimeException(e);
         }
     }
+
+    @Override
+    public Theater getTheaterById(Integer theaterId) {
+        return theaterRepository.findById(theaterId).orElse(null);
+    }
+
+    @Override
+    public Theater updateTheater(TheaterDTO theaterDTO, Integer theaterId) {
+        Theater theater = getTheaterById(theaterId);
+        if(theater != null){
+            theater.setTheaterName(theaterDTO.getTheaterName());
+            theater.setTheaterAddress(theaterDTO.getTheaterAddress());
+            theater.setTheaterCity(theaterDTO.getTheaterCity());
+            theater.setTheaterState(theaterDTO.getTheaterState());
+            theater.setZipCode(theaterDTO.getZipCode());
+            theater.setTotalScreens(theaterDTO.getTotalScreens());
+            theater.setActive(theaterDTO.isActive());
+            return theaterRepository.save(theater);
+        } else {
+            return null;
+        }
+    }
+
+
 }
