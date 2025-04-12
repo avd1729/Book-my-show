@@ -1,6 +1,7 @@
 package com.example.mock.controller;
 
 import com.example.mock.dto.TheaterDTO;
+import com.example.mock.entity.Theater;
 import com.example.mock.service.theater.TheaterService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -20,8 +21,8 @@ public class TheaterController {
 
     @PostMapping("/add")
     @PreAuthorize("hasRole('ADMIN')")
-    public ResponseEntity<String> addTheater(@RequestBody TheaterDTO theaterDTO){
-        String result = theaterService.addTheater(theaterDTO);
+    public ResponseEntity<Theater> addTheater(@RequestBody TheaterDTO theaterDTO){
+        Theater result = theaterService.addTheater(theaterDTO);
         return ResponseEntity.status(HttpStatus.CREATED).body(result);
     }
 }

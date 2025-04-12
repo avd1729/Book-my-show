@@ -13,7 +13,7 @@ public class TheaterService implements ITheaterService{
     private TheaterRepository theaterRepository;
 
     @Override
-    public String addTheater(TheaterDTO theaterDTO) {
+    public Theater addTheater(TheaterDTO theaterDTO) {
         try {
             Theater theater = new Theater();
             theater.setTheaterName(theaterDTO.getTheaterName());
@@ -23,7 +23,7 @@ public class TheaterService implements ITheaterService{
             theater.setZipCode(theaterDTO.getZipCode());
             theater.setTotalScreens(theaterDTO.getTotalScreens());
             theater.setActive(theaterDTO.isActive());
-            return "Theater created successfully!";
+            return theaterRepository.save(theater);
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
