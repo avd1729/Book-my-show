@@ -38,11 +38,4 @@ public class User {
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
     public List<Review> reviews = new ArrayList<>();
 
-    public String getUsername(){
-        return username;
-    }
-
-    public String getPassword() {
-        return password;
-    }
 }
