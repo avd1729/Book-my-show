@@ -1,9 +1,9 @@
 -- Insert Users
-INSERT INTO users (is_admin, email, password, first_name, last_name, phone_number)
+INSERT INTO users (username, is_admin, email, password, first_name, last_name, phone_number)
 VALUES
-    (true,'admin@admin.com', 'admin', 'admin', 'admin', '90871237465'),
-    (false,'john.doe@example.com', 'hashed_password1', 'John', 'Doe', '1234567890'),
-    (false,'jane.smith@example.com', 'hashed_password2', 'Jane', 'Smith', '9876543210');
+    ('adminjoe', true,'admin@admin.com', '$2a$10$tQkoCgXEry/lMg1olz2N1.K9hj4xnxs5odli0BsMNu0Fe0Yqv0HcG', 'admin', 'admin', '90871237465'),
+    ('john123', false,'john.doe@example.com', '$2a$10$bK4sngBXPZ99egFe6srq7ei/YFDKORnImGsMxqXeFA/BVOR15LERa', 'John', 'Doe', '1234567890'),
+    ('jane456', false,'jane.smith@example.com', '$2a$10$bK4sngBXPZ99egFe6srq7ei/YFDKORnImGsMxqXeFA/BVOR15LERa', 'Jane', 'Smith', '9876543210');
 
 -- Insert Theaters (Added `is_active`)
 INSERT INTO theaters (theater_name, theater_address, theater_city, theater_state, zip_code, total_screens, is_active)
