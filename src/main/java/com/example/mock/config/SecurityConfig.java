@@ -1,7 +1,6 @@
 package com.example.mock.config;
 
-import com.example.mock.service.CustomUserDetailsService;
-import com.example.mock.config.JwtRequestFilter;
+import com.example.mock.service.jwt.CustomUserDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

@@ -1,7 +1,7 @@
 package com.example.mock.config;
 
-import com.example.mock.service.CustomUserDetailsService;
-import com.example.mock.service.JwtUtil;
+import com.example.mock.service.jwt.CustomUserDetailsService;
+import com.example.mock.service.jwt.JwtUtil;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;

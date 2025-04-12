@@ -2,8 +2,8 @@ package com.example.mock.controller;
 
 import com.example.mock.dto.AuthRequest;
 import com.example.mock.dto.AuthResponse;
-import com.example.mock.service.CustomUserDetailsService;
-import com.example.mock.service.JwtUtil;
+import com.example.mock.service.jwt.CustomUserDetailsService;
+import com.example.mock.service.jwt.JwtUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;

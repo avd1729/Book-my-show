@@ -1,4 +1,4 @@
-package com.example.mock.service;
+package com.example.mock.service.jwt;
 
 
 import com.example.mock.entity.User;
