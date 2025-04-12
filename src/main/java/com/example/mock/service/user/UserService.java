@@ -16,28 +16,29 @@ public class UserService implements IUserService{
     @Autowired
     private PasswordEncoder passwordEncoder;
 
-    public User registerUser(UserDTO userDTO) {
+    public String registerUser(UserDTO userDTO) {
+        try {
+            if (userRepository.existsByUsername(userDTO.getUsername())) {
+                throw new RuntimeException("Username already taken");
+            }
 
-        if (userRepository.existsByUsername(userDTO.getUsername())) {
-            throw new RuntimeException("Username already taken");
+            if (userRepository.existsByEmail(userDTO.getEmail())) {
+                throw new RuntimeException("Email already registered");
+            }
+
+            User user = new User();
+            user.setUsername(userDTO.getUsername());
+            user.setAdmin(userDTO.isAdmin());
+            user.setEmail(userDTO.getEmail());
+            user.setFirstName(userDTO.getFirstName());
+            user.setLastName(userDTO.getLastName());
+            user.setPhoneNumber(userDTO.getPhoneNumber());
+            user.setPassword(passwordEncoder.encode(userDTO.getPassword()));
+
+            userRepository.save(user);
+            return "User registered successfully!";
+        } catch (RuntimeException e) {
+            throw new RuntimeException(e);
         }
-
-        if (userRepository.existsByEmail(userDTO.getEmail())) {
-            throw new RuntimeException("Email already registered");
-        }
-
-        // Map DTO to Entity
-        User user = new User();
-        user.setUsername(userDTO.getUsername());
-        user.setAdmin(userDTO.isAdmin());
-        user.setEmail(userDTO.getEmail());
-        user.setFirstName(userDTO.getFirstName());
-        user.setLastName(userDTO.getLastName());
-        user.setPhoneNumber(userDTO.getPhoneNumber());
-
-        // Encrypt password before saving
-        user.setPassword(passwordEncoder.encode(userDTO.getPassword()));
-
-        return userRepository.save(user);
     }
 }

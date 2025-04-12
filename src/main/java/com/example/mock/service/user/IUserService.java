@@ -1,8 +1,8 @@
 package com.example.mock.service.user;
 
 import com.example.mock.dto.UserDTO;
-import com.example.mock.entity.User;
+import org.springframework.http.ResponseEntity;
 
 public interface IUserService {
-    User registerUser(UserDTO user);
+    String registerUser(UserDTO user);
 }
