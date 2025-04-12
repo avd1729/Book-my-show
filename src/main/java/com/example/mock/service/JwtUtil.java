@@ -8,7 +8,7 @@ import java.util.function.Function;
 
 @Component
 public class JwtUtil {
-    private String SECRET_KEY = "yourSuperSecure256BitSecretKeyGoesHere1234567890123456";
+    private String SECRET_KEY = "tPjdsGAQzLlwC4pX8o7t6f1OdA1BCHb6Bz3FtP+Sh8=I";
 
     public String extractUsername(String token) {
         return extractClaim(token, Claims::getSubject);
