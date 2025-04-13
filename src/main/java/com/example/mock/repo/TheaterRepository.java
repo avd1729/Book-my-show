@@ -3,6 +3,8 @@ package com.example.mock.repo;
 import com.example.mock.entity.Theater;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface TheaterRepository extends JpaRepository<Theater, Integer> {
+import java.util.List;
 
+public interface TheaterRepository extends JpaRepository<Theater, Integer> {
+    List<Theater> findAllByIsActiveTrue();
 }

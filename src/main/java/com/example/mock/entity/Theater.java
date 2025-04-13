@@ -1,6 +1,7 @@
 package com.example.mock.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -27,6 +28,8 @@ public class Theater {
     public String theaterState;
     public int zipCode;
     public int totalScreens;
+
+    @JsonProperty("isActive")
     public boolean isActive = true;
 
     @JsonIgnore

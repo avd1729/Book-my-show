@@ -6,6 +6,8 @@ import com.example.mock.repo.TheaterRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class TheaterService implements ITheaterService{
 
@@ -49,6 +51,11 @@ public class TheaterService implements ITheaterService{
         } else {
             return null;
         }
+    }
+
+    @Override
+    public List<Theater> getActiveTheaters() {
+        return theaterRepository.findAllByIsActiveTrue();
     }
 
 
