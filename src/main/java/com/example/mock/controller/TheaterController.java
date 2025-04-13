@@ -1,6 +1,7 @@
 package com.example.mock.controller;
 
 import com.example.mock.dto.TheaterDTO;
+import com.example.mock.entity.Screen;
 import com.example.mock.entity.Theater;
 import com.example.mock.service.theater.TheaterService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -53,6 +54,11 @@ public class TheaterController {
         return ResponseEntity.status(HttpStatus.FOUND).body(result);
     }
 
-
+    @GetMapping("/screens/{id}")
+    @PreAuthorize("hasRole('ADMIN')")
+    public ResponseEntity<List<Screen>> getScreens(@PathVariable Integer id){
+        List<Screen> result = theaterService.getAllScreens(id);
+        return ResponseEntity.status(HttpStatus.FOUND).body(result);
+    }
 
 }

@@ -1,5 +1,6 @@
 package com.example.mock.repo;
 
+import com.example.mock.entity.Screen;
 import com.example.mock.entity.Theater;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;

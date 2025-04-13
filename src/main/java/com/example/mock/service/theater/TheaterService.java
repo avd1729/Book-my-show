@@ -1,7 +1,9 @@
 package com.example.mock.service.theater;
 
 import com.example.mock.dto.TheaterDTO;
+import com.example.mock.entity.Screen;
 import com.example.mock.entity.Theater;
+import com.example.mock.repo.ScreenRepository;
 import com.example.mock.repo.TheaterRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -13,6 +15,9 @@ public class TheaterService implements ITheaterService{
 
     @Autowired
     private TheaterRepository theaterRepository;
+
+    @Autowired
+    private ScreenRepository screenRepository;
 
     @Override
     public Theater addTheater(TheaterDTO theaterDTO) {
@@ -68,5 +73,9 @@ public class TheaterService implements ITheaterService{
         return theaterRepository.findAllByTheaterState(theaterState);
     }
 
+    @Override
+    public List<Screen> getAllScreens(Integer theaterId) {
+        return screenRepository.findAllByTheater_TheaterIdAndIsActiveTrue(theaterId);
+    }
 
 }
