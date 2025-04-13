@@ -39,4 +39,20 @@ public class TheaterController {
         return ResponseEntity.status(HttpStatus.FOUND).body(result);
     }
 
+    @GetMapping("/getByCity/{city}")
+    @PreAuthorize("hasRole('ADMIN')")
+    public ResponseEntity<List<Theater>> getTheatersByCity(@PathVariable String city){
+        List<Theater> result = theaterService.getTheatersByCity(city);
+        return ResponseEntity.status(HttpStatus.FOUND).body(result);
+    }
+
+    @GetMapping("/getByState/{state}")
+    @PreAuthorize("hasRole('ADMIN')")
+    public ResponseEntity<List<Theater>> getTheatersByState(@PathVariable String state){
+        List<Theater> result = theaterService.getTheatersByState(state);
+        return ResponseEntity.status(HttpStatus.FOUND).body(result);
+    }
+
+
+
 }
