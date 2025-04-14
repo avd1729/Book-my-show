@@ -5,6 +5,7 @@ import com.example.mock.entity.Screen;
 import com.example.mock.entity.Theater;
 import com.example.mock.repo.ScreenRepository;
 import com.example.mock.repo.TheaterRepository;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -56,6 +57,15 @@ public class TheaterService implements ITheaterService{
         } else {
             return null;
         }
+    }
+
+    @Override
+    @Transactional
+    public Theater deleteTheater(Integer theaterId) {
+        Theater theater = getTheaterById(theaterId);
+        //theaterRepository.deleteById(theaterId);
+        theaterRepository.softDeleteById(theaterId);
+        return theater;
     }
 
     @Override

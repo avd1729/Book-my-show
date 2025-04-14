@@ -7,9 +7,12 @@ import com.example.mock.entity.Theater;
 import java.util.List;
 
 public interface ITheaterService {
+
     Theater addTheater(TheaterDTO theaterDTO);
     Theater getTheaterById(Integer theaterId);
     Theater updateTheater(TheaterDTO theater, Integer theaterId);
+    Theater deleteTheater(Integer theaterId);
+
     List<Theater> getAllTheaters();
     List<Theater> getActiveTheaters();
     List<Theater> getTheatersByCity(String theaterCity);

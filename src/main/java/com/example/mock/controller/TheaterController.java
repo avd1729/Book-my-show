@@ -40,6 +40,19 @@ public class TheaterController {
         return ResponseEntity.status(HttpStatus.FOUND).body(result);
     }
 
+    @DeleteMapping("/delete/{id}")
+    @PreAuthorize("hasRole('ADMIN')")
+    public ResponseEntity<Theater> deleteTheater(@PathVariable Integer id){
+        Theater result = theaterService.deleteTheater(id);
+        return ResponseEntity.status(HttpStatus.OK).body(result);
+    }
+
+    @GetMapping("/get/{id}")
+    public ResponseEntity<Theater> getTheaterById(@PathVariable Integer id){
+        Theater result = theaterService.getTheaterById(id);
+        return ResponseEntity.status(HttpStatus.FOUND).body(result);
+    }
+
     @GetMapping("/getActive")
     public ResponseEntity<List<Theater>> getActiveTheaters(){
         List<Theater> result = theaterService.getActiveTheaters();
