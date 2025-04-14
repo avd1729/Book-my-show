@@ -4,12 +4,13 @@ import com.example.mock.dto.MovieDTO;
 import com.example.mock.entity.Movie;
 import com.example.mock.service.movie.MovieService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.security.core.parameters.P;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Date;
 import java.util.List;
 
 @RestController
@@ -63,4 +64,11 @@ public class MovieController {
         List<Movie> result = movieService.getByGenreAndLanguage(genre, language);
         return ResponseEntity.status(HttpStatus.FOUND).body(result);
     }
+
+    @GetMapping("/date")
+    ResponseEntity<List<Movie>> getByDate(@RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)Date date){
+        List<Movie> result = movieService.getByDate(date);
+        return ResponseEntity.status(HttpStatus.FOUND).body(result);
+    }
+
 }

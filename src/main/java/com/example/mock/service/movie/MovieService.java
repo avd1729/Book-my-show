@@ -89,6 +89,6 @@ public class MovieService implements IMovieService{
 
     @Override
     public List<Movie> getByDate(Date date) {
-        return List.of();
+        return movieRepository.findByReleaseDateLessThanEqualAndEndDateGreaterThanEqual(date, date);
     }
 }
