@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.parameters.P;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -42,6 +43,24 @@ public class MovieController {
     @PreAuthorize("hasRole('ADMIN')")
     ResponseEntity<Movie> deleteMovie(@PathVariable Integer id){
         Movie result = movieService.deleteMovie(id);
+        return ResponseEntity.status(HttpStatus.FOUND).body(result);
+    }
+
+    @GetMapping("/getByGenre/{genre}")
+    ResponseEntity<List<Movie>> getByGenre(@PathVariable String genre){
+        List<Movie> result = movieService.getByGenre(genre);
+        return ResponseEntity.status(HttpStatus.FOUND).body(result);
+    }
+
+    @GetMapping("/getByLanguage/{language}")
+    ResponseEntity<List<Movie>> getByLanguage(@PathVariable String language){
+        List<Movie> result = movieService.getByLanguage(language);
+        return ResponseEntity.status(HttpStatus.FOUND).body(result);
+    }
+
+    @GetMapping("/getByGenreAndLang/{genre}/{language}")
+    ResponseEntity<List<Movie>> getByGenreAndLanguage(@PathVariable String genre, @PathVariable String language){
+        List<Movie> result = movieService.getByGenreAndLanguage(genre, language);
         return ResponseEntity.status(HttpStatus.FOUND).body(result);
     }
 }

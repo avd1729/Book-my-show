@@ -14,5 +14,6 @@ public interface IMovieService {
     List<Movie> getAllMovies();
     List<Movie> getByGenre(String genre);
     List<Movie> getByLanguage(String language);
+    List<Movie> getByGenreAndLanguage(String genre, String language);
     List<Movie> getByDate(Date date);
 }

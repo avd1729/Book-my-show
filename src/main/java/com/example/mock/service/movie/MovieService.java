@@ -74,12 +74,17 @@ public class MovieService implements IMovieService{
 
     @Override
     public List<Movie> getByGenre(String genre) {
-        return List.of();
+        return movieRepository.getMoviesByGenre(genre);
     }
 
     @Override
     public List<Movie> getByLanguage(String language) {
-        return List.of();
+        return movieRepository.getMoviesByLanguage(language);
+    }
+
+    @Override
+    public List<Movie> getByGenreAndLanguage(String genre, String language) {
+        return movieRepository.getMoviesByGenreAndLanguage(genre, language);
     }
 
     @Override
