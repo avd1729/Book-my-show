@@ -37,4 +37,11 @@ public class MovieController {
         Movie result = movieService.updateMovie(movieDTO, id);
         return ResponseEntity.status(HttpStatus.CREATED).body(result);
     }
+
+    @DeleteMapping("/delete/{id}")
+    @PreAuthorize("hasRole('ADMIN')")
+    ResponseEntity<Movie> deleteMovie(@PathVariable Integer id){
+        Movie result = movieService.deleteMovie(id);
+        return ResponseEntity.status(HttpStatus.FOUND).body(result);
+    }
 }

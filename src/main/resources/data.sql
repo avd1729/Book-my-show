@@ -60,3 +60,56 @@ INSERT INTO reviews (user_id, movie_id, rating, review_text)
 VALUES
     (1, 1, 5, 'Amazing movie!'),
     (2, 2, 4, 'Great visuals and story.');
+
+ALTER TABLE reviews
+DROP CONSTRAINT FK87TLQYA0RQ8IJFJSCLDPVVDYQ;
+
+ALTER TABLE reviews
+    ADD CONSTRAINT FK87TLQYA0RQ8IJFJSCLDPVVDYQ
+        FOREIGN KEY (MOVIE_ID)
+            REFERENCES movies(MOVIE_ID)
+            ON DELETE CASCADE;
+
+-- Drop the existing foreign key constraint on SHOW_TIMES
+ALTER TABLE show_times
+DROP CONSTRAINT FK8J8E0814CFOYPJRUI0BL745AP;
+
+-- Add a new foreign key constraint with ON DELETE CASCADE
+ALTER TABLE show_times
+    ADD CONSTRAINT FK8J8E0814CFOYPJRUI0BL745AP
+        FOREIGN KEY (MOVIE_ID)
+            REFERENCES movies(MOVIE_ID)
+            ON DELETE CASCADE;
+
+-- Drop the existing foreign key constraint on RESERVATIONS
+ALTER TABLE reservations
+DROP CONSTRAINT FK7NJ8LJ4MFVGND2E4KBK49V65E;
+
+-- Add a new foreign key constraint with ON DELETE CASCADE
+ALTER TABLE reservations
+    ADD CONSTRAINT FK7NJ8LJ4MFVGND2E4KBK49V65E
+        FOREIGN KEY (SHOWTIME_ID)
+            REFERENCES show_times(SHOWTIME_ID)
+            ON DELETE CASCADE;
+
+-- Drop the existing foreign key constraint on PAYMENTS
+ALTER TABLE payments
+DROP CONSTRAINT FKP8YH4SJT3U0G6ARU1OXFH3O14;
+
+-- Add a new foreign key constraint with ON DELETE CASCADE
+ALTER TABLE payments
+    ADD CONSTRAINT FKP8YH4SJT3U0G6ARU1OXFH3O14
+        FOREIGN KEY (reservation_id)
+            REFERENCES reservations(reservation_id)
+            ON DELETE CASCADE;
+
+-- Drop the existing foreign key constraint on RESERVED_SEATS
+ALTER TABLE reserved_seats
+DROP CONSTRAINT FKCWD72PD9H4YL47QKEUEGS1MVS;
+
+-- Add a new foreign key constraint with ON DELETE CASCADE
+ALTER TABLE reserved_seats
+    ADD CONSTRAINT FKCWD72PD9H4YL47QKEUEGS1MVS
+        FOREIGN KEY (reservation_id)
+            REFERENCES reservations(reservation_id)
+            ON DELETE CASCADE;

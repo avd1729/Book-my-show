@@ -3,6 +3,7 @@ package com.example.mock.service.movie;
 import com.example.mock.dto.MovieDTO;
 import com.example.mock.entity.Movie;
 import com.example.mock.repo.MovieRepository;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -59,8 +60,11 @@ public class MovieService implements IMovieService{
     }
 
     @Override
+    @Transactional
     public Movie deleteMovie(Integer movieId) {
-        return null;
+        Movie movie = getById(movieId);
+        movieRepository.deleteMovieById(movieId);
+        return movie;
     }
 
     @Override
