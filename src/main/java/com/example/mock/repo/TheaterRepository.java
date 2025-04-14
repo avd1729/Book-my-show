@@ -9,7 +9,8 @@ import java.util.List;
 
 @Repository
 public interface TheaterRepository extends JpaRepository<Theater, Integer> {
+    List<Theater> findAll();
     List<Theater> findAllByIsActiveTrue();
-    List<Theater> findAllByTheaterCity(String theaterCity);
-    List<Theater> findAllByTheaterState(String theaterState);
+    List<Theater> findAllByTheaterCityAndIsActiveTrue(String theaterCity);
+    List<Theater> findAllByTheaterStateAndIsActiveTrue(String theaterState);
 }

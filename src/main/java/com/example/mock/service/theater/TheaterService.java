@@ -59,18 +59,23 @@ public class TheaterService implements ITheaterService{
     }
 
     @Override
+    public List<Theater> getAllTheaters() {
+        return theaterRepository.findAll();
+    }
+
+    @Override
     public List<Theater> getActiveTheaters() {
         return theaterRepository.findAllByIsActiveTrue();
     }
 
     @Override
     public List<Theater> getTheatersByCity(String theaterCity) {
-        return theaterRepository.findAllByTheaterCity(theaterCity);
+        return theaterRepository.findAllByTheaterCityAndIsActiveTrue(theaterCity);
     }
 
     @Override
     public List<Theater> getTheatersByState(String theaterState) {
-        return theaterRepository.findAllByTheaterState(theaterState);
+        return theaterRepository.findAllByTheaterStateAndIsActiveTrue(theaterState);
     }
 
     @Override

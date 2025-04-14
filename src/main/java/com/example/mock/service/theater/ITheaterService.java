@@ -10,6 +10,7 @@ public interface ITheaterService {
     Theater addTheater(TheaterDTO theaterDTO);
     Theater getTheaterById(Integer theaterId);
     Theater updateTheater(TheaterDTO theater, Integer theaterId);
+    List<Theater> getAllTheaters();
     List<Theater> getActiveTheaters();
     List<Theater> getTheatersByCity(String theaterCity);
     List<Theater> getTheatersByState(String theaterState);

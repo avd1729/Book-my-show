@@ -33,29 +33,32 @@ public class TheaterController {
         return ResponseEntity.status(HttpStatus.CREATED).body(result);
     }
 
-    @GetMapping("/getActive")
+    @GetMapping("/getAll")
     @PreAuthorize("hasRole('ADMIN')")
+    public ResponseEntity<List<Theater>> getAllTheaters(){
+        List<Theater> result = theaterService.getAllTheaters();
+        return ResponseEntity.status(HttpStatus.FOUND).body(result);
+    }
+
+    @GetMapping("/getActive")
     public ResponseEntity<List<Theater>> getActiveTheaters(){
         List<Theater> result = theaterService.getActiveTheaters();
         return ResponseEntity.status(HttpStatus.FOUND).body(result);
     }
 
     @GetMapping("/getByCity/{city}")
-    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<List<Theater>> getTheatersByCity(@PathVariable String city){
         List<Theater> result = theaterService.getTheatersByCity(city);
         return ResponseEntity.status(HttpStatus.FOUND).body(result);
     }
 
     @GetMapping("/getByState/{state}")
-    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<List<Theater>> getTheatersByState(@PathVariable String state){
         List<Theater> result = theaterService.getTheatersByState(state);
         return ResponseEntity.status(HttpStatus.FOUND).body(result);
     }
 
     @GetMapping("/screens/{id}")
-    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<List<Screen>> getScreens(@PathVariable Integer id){
         List<Screen> result = theaterService.getAllScreens(id);
         return ResponseEntity.status(HttpStatus.FOUND).body(result);
