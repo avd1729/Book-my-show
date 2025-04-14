@@ -39,7 +39,22 @@ public class ScreenService implements IScreenService{
 
     @Override
     public Screen updateScreen(ScreenDTO screenDTO, Integer screenId) {
-        return null;
+        Screen screen = getScreenById(screenId);
+        if(screen != null){
+            screen.setScreenNumber(screenDTO.getScreenNumber());
+            screen.setSeatingCapacity(screenDTO.getSeatingCapacity());
+            screen.setScreenType(screenDTO.getScreenType());
+            screen.setActive(screenDTO.isActive());
+            Theater theater = theaterRepository.getById(screenDTO.getTheaterId());
+            if(theater != null){
+                screen.setTheater(theater);
+            } else {
+                return null;
+            }
+            return screenRepository.save(screen);
+        } else {
+            return null;
+        }
     }
 
     @Override
@@ -49,7 +64,7 @@ public class ScreenService implements IScreenService{
 
     @Override
     public Screen getScreenById(Integer screenId) {
-        return null;
+        return screenRepository.findById(screenId).orElse(null);
     }
 
     @Override
