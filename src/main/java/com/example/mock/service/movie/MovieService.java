@@ -17,7 +17,7 @@ public class MovieService implements IMovieService{
 
     @Override
     public Movie getById(Integer movieId) {
-        return movieRepository.getById(movieId);
+        return movieRepository.findById(movieId).orElse(null);
     }
 
     @Override
@@ -39,7 +39,23 @@ public class MovieService implements IMovieService{
 
     @Override
     public Movie updateMovie(MovieDTO movieDTO, Integer movieId) {
-        return null;
+        Movie movie = getById(movieId);
+        if(movie != null){
+            movie.setTitle(movieDTO.getTitle());
+            movie.setDescription(movieDTO.getDescription());
+            movie.setGenre(movieDTO.getGenre());
+            movie.setDuration(movieDTO.getDuration());
+            movie.setRating(movieDTO.getRating());
+            movie.setReleaseDate(movieDTO.getReleaseDate());
+            movie.setEndDate(movieDTO.getEndDate());
+            movie.setPosterUrl(movieDTO.getPosterUrl());
+            movie.setBackdropUrl(movieDTO.getBackdropUrl());
+            movie.setTrailerUrl(movieDTO.getTrailerUrl());
+            movie.setLanguage(movieDTO.getLanguage());
+            return movieRepository.save(movie);
+        } else {
+            return null;
+        }
     }
 
     @Override
@@ -49,7 +65,7 @@ public class MovieService implements IMovieService{
 
     @Override
     public List<Movie> getAllMovies() {
-        return List.of();
+        return movieRepository.findAll();
     }
 
     @Override
