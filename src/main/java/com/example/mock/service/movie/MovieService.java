@@ -5,6 +5,7 @@ import com.example.mock.entity.Movie;
 import com.example.mock.repo.MovieRepository;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
@@ -68,21 +69,26 @@ public class MovieService implements IMovieService{
     }
 
     @Override
+    @Cacheable(value = "movies", key = "'all_movies'")
     public List<Movie> getAllMovies() {
         return movieRepository.findAll();
     }
 
+
     @Override
+    @Cacheable(value = "movies", key = "#genre")
     public List<Movie> getByGenre(String genre) {
         return movieRepository.getMoviesByGenre(genre);
     }
 
     @Override
+    @Cacheable(value = "movies", key = "#language")
     public List<Movie> getByLanguage(String language) {
         return movieRepository.getMoviesByLanguage(language);
     }
 
     @Override
+    @Cacheable(value = "movies", key = "#genre + '-' + #language")
     public List<Movie> getByGenreAndLanguage(String genre, String language) {
         return movieRepository.getMoviesByGenreAndLanguage(genre, language);
     }
