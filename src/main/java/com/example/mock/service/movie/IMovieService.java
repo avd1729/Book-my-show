@@ -3,6 +3,7 @@ package com.example.mock.service.movie;
 import com.example.mock.dto.MovieDTO;
 import com.example.mock.entity.Movie;
 
+import java.util.Date;
 import java.util.List;
 
 public interface IMovieService {
@@ -13,4 +14,5 @@ public interface IMovieService {
     List<Movie> getAllMovies();
     List<Movie> getByGenre(String genre);
     List<Movie> getByLanguage(String language);
+    List<Movie> getByDate(Date date);
 }
