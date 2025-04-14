@@ -10,6 +10,6 @@ public interface IScreenService {
     Screen updateScreen(ScreenDTO screenDTO, Integer screenId);
     Screen deleteScreen(Integer screenId);
     Screen getScreenById(Integer screenId);
-    Screen getActiveScreensByTheaterId(Integer theaterId);
+    List<Screen> getActiveScreensByTheaterId(Integer theaterId);
     List<Screen> getAllScreens();
 }

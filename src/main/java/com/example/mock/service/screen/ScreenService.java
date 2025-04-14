@@ -5,6 +5,7 @@ import com.example.mock.entity.Screen;
 import com.example.mock.entity.Theater;
 import com.example.mock.repo.ScreenRepository;
 import com.example.mock.repo.TheaterRepository;
+import com.example.mock.service.theater.TheaterService;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -20,6 +21,9 @@ public class ScreenService implements IScreenService{
 
     @Autowired
     private TheaterRepository theaterRepository;
+
+    @Autowired
+    private TheaterService theaterService;
 
     @Override
     public Screen addScreen(ScreenDTO screenDTO) {
@@ -74,8 +78,8 @@ public class ScreenService implements IScreenService{
     }
 
     @Override
-    public Screen getActiveScreensByTheaterId(Integer theaterId) {
-        return null;
+    public List<Screen> getActiveScreensByTheaterId(Integer theaterId) {
+        return theaterService.getAllScreens(theaterId);
     }
 
     @Override

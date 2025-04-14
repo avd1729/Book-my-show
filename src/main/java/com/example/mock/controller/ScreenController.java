@@ -46,4 +46,10 @@ public class ScreenController {
         return ResponseEntity.status(HttpStatus.CREATED).body(result);
     }
 
+    @GetMapping("/getAllActive/{id}")
+    public ResponseEntity<List<Screen>> getAllActive(@PathVariable Integer id){
+        List<Screen> result = screenService.getActiveScreensByTheaterId(id);
+        return ResponseEntity.status(HttpStatus.CREATED).body(result);
+    }
+
 }
