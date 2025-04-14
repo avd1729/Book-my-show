@@ -9,6 +9,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/api/screen")
 public class ScreenController {
@@ -29,4 +31,19 @@ public class ScreenController {
         Screen result = screenService.updateScreen(screenDTO, id);
         return ResponseEntity.status(HttpStatus.CREATED).body(result);
     }
+
+    @DeleteMapping("/delete/{id}")
+    @PreAuthorize("hasRole('ADMIN')")
+    public ResponseEntity<Screen> deleteScreen(@PathVariable Integer id){
+        Screen result = screenService.deleteScreen(id);
+        return ResponseEntity.status(HttpStatus.CREATED).body(result);
+    }
+
+    @GetMapping("/getAll")
+    @PreAuthorize("hasRole('ADMIN')")
+    public ResponseEntity<List<Screen>> getAllScreens(){
+        List<Screen> result = screenService.getAllScreens();
+        return ResponseEntity.status(HttpStatus.CREATED).body(result);
+    }
+
 }

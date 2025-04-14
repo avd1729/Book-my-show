@@ -5,6 +5,7 @@ import com.example.mock.entity.Screen;
 import com.example.mock.entity.Theater;
 import com.example.mock.repo.ScreenRepository;
 import com.example.mock.repo.TheaterRepository;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -58,8 +59,13 @@ public class ScreenService implements IScreenService{
     }
 
     @Override
+    @Transactional
     public Screen deleteScreen(Integer screenId) {
-        return null;
+        Screen screen = getScreenById(screenId);
+        if(screen != null){
+            screenRepository.softDeleteById(screenId);
+        }
+        return screen;
     }
 
     @Override
@@ -74,6 +80,6 @@ public class ScreenService implements IScreenService{
 
     @Override
     public List<Screen> getAllScreens() {
-        return List.of();
+        return screenRepository.findAll();
     }
 }
