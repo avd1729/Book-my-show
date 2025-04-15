@@ -31,7 +31,11 @@ public class User {
     public String lastName;
     public String phoneNumber;
     public Timestamp createdAt;
-    public Timestamp updatedAt;
+
+    @PrePersist
+    protected void onCreate() {
+        this.createdAt = new Timestamp(System.currentTimeMillis());
+    }
 
     @JsonIgnore
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
