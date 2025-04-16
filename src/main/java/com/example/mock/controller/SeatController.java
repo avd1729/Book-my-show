@@ -5,10 +5,7 @@ import com.example.mock.service.seat.SeatService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -23,4 +20,34 @@ public class SeatController {
         List<Seat> result = seatService.getSeatsForScreen(id);
         return ResponseEntity.status(HttpStatus.FOUND).body(result);
     }
+
+    @PostMapping("/lock")
+    public ResponseEntity<String> lockSeat(
+            @RequestParam String showtimeId,
+            @RequestParam String seatId,
+            @RequestParam String userId,
+            @RequestParam(defaultValue = "300") long ttlSeconds
+    ) {
+        boolean success = seatService.lockSeat(showtimeId, seatId, userId, ttlSeconds);
+        if (success) {
+            return ResponseEntity.ok("Seat locked successfully.");
+        } else {
+            return ResponseEntity.status(409).body("Seat is already locked by another user.");
+        }
+    }
+
+    @PostMapping("/unlock")
+    public ResponseEntity<String> unlockSeat(
+            @RequestParam String showtimeId,
+            @RequestParam String seatId,
+            @RequestParam String userId
+    ) {
+        boolean success = seatService.unlockSeat(showtimeId, seatId, userId);
+        if (success) {
+            return ResponseEntity.ok("Seat unlocked successfully.");
+        } else {
+            return ResponseEntity.status(403).body("Failed to unlock seat. You might not be the owner.");
+        }
+    }
+
 }
