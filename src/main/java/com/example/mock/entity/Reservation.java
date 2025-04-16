@@ -23,33 +23,33 @@ public class Reservation {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    public int reservationId;
+    private int reservationId;
 
-    public Timestamp reservationTime;
-
-    @Enumerated(EnumType.STRING)
-    public ReservationStatus reservationStatus;
-
-    public int totalAmount;
+    private Timestamp reservationTime;
 
     @Enumerated(EnumType.STRING)
-    public PaymentStatus paymentStatus;
+    private ReservationStatus reservationStatus;
+
+    private int totalAmount;
+
+    @Enumerated(EnumType.STRING)
+    private PaymentStatus paymentStatus;
 
     @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "user_id", referencedColumnName = "userId", nullable = false)
-    public User user;
+    private User user;
 
     @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "showtime_id", referencedColumnName = "showtimeId", nullable = false)
-    public ShowTime showTime;
+    private ShowTime showTime;
 
     @JsonIgnore
     @OneToMany(mappedBy = "reservation", cascade = CascadeType.ALL, orphanRemoval = true)
-    public List<ReservedSeat> reservedSeats = new ArrayList<>();
+    private List<ReservedSeat> reservedSeats = new ArrayList<>();
 
     @JsonIgnore
     @OneToOne(mappedBy = "reservation")
-    public Payment payment;
+    private Payment payment;
 }

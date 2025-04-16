@@ -8,10 +8,10 @@ import java.sql.Timestamp;
 @Getter
 @Setter
 public class ShowTimeDTO {
-    public Timestamp startTime;
-    public Timestamp endTime;
-    public int price;
-    public boolean isActive = true;
-    public Integer movieId;
-    public Integer screenId;
+    private Timestamp startTime;
+    private Timestamp endTime;
+    private int price;
+    private boolean isActive = true;
+    private Integer movieId;
+    private Integer screenId;
 }

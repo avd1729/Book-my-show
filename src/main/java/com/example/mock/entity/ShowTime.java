@@ -25,26 +25,26 @@ public class ShowTime implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    public int showtimeId;
+    private int showtimeId;
 
-    public Timestamp startTime;
-    public Timestamp endTime;
-    public int price;
+    private Timestamp startTime;
+    private Timestamp endTime;
+    private int price;
 
     @JsonProperty("isActive")
-    public boolean isActive = true;
+    private boolean isActive = true;
 
     @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "movie_id", referencedColumnName = "movieId", nullable = false)
-    public Movie movie;
+    private Movie movie;
 
     @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "screen_id", referencedColumnName = "screenId", nullable = false)
-    public Screen screen;
+    private Screen screen;
 
     @JsonIgnore
     @OneToMany(mappedBy = "showTime", cascade = CascadeType.ALL, orphanRemoval = true)
-    public List<Reservation> reservations = new ArrayList<>();
+    private List<Reservation> reservations = new ArrayList<>();
 }

@@ -17,18 +17,17 @@ public class ReservedSeat {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    public int reservedSeatId;
-    public int price;
+    private int reservedSeatId;
+    private int price;
 
     @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "reservation_id", referencedColumnName = "reservationId", nullable = false)
-    public Reservation reservation;
+    private Reservation reservation;
 
     @JsonIgnore
     @OneToOne
     @JoinColumn(name = "seat_id", referencedColumnName = "seatId", nullable = false)
-    public Seat seat;
-
+    private Seat seat;
 
 }

@@ -6,11 +6,11 @@ import lombok.Setter;
 @Getter
 @Setter
 public class TheaterDTO {
-    public String theaterName;
-    public String theaterAddress;
-    public String theaterCity;
-    public String theaterState;
-    public int zipCode;
-    public int totalScreens;
-    public boolean isActive = true;
+    private String theaterName;
+    private String theaterAddress;
+    private String theaterCity;
+    private String theaterState;
+    private int zipCode;
+    private int totalScreens;
+    private boolean isActive = true;
 }

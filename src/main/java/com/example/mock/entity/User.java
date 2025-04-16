@@ -21,16 +21,16 @@ public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    public int userId;
+    private int userId;
 
-    public String username;
-    public boolean isAdmin = false;
-    public String email;
-    public String password;
-    public String firstName;
-    public String lastName;
-    public String phoneNumber;
-    public Timestamp createdAt;
+    private String username;
+    private boolean isAdmin = false;
+    private String email;
+    private String password;
+    private String firstName;
+    private String lastName;
+    private String phoneNumber;
+    private Timestamp createdAt;
 
     @PrePersist
     protected void onCreate() {
@@ -39,10 +39,10 @@ public class User {
 
     @JsonIgnore
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
-    public List<Reservation> reservations = new ArrayList<>();
+    private List<Reservation> reservations = new ArrayList<>();
 
     @JsonIgnore
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
-    public List<Review> reviews = new ArrayList<>();
+    private List<Review> reviews = new ArrayList<>();
 
 }

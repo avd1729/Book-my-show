@@ -19,19 +19,19 @@ public class Review {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    public int reviewId;
+    private int reviewId;
 
-    public Double rating;
-    public String reviewText;
-    public Timestamp reviewTime;
+    private Double rating;
+    private String reviewText;
+    private Timestamp reviewTime;
 
     @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "user_id", referencedColumnName = "userId", nullable = false)
-    public User user;
+    private User user;
 
     @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "movie_id", referencedColumnName = "movieId", nullable = false)
-    public Movie movie;
+    private Movie movie;
 }

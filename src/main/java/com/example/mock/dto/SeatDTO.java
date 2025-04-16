@@ -7,10 +7,10 @@ import lombok.Setter;
 @Getter
 @Setter
 public class SeatDTO {
-    public String seatRow;
-    public int seatNumber;
-    public SeatType seatType;
-    public boolean isActive = true;
-    public Integer screenId;
-    public Integer reservedSeatId;
+    private String seatRow;
+    private int seatNumber;
+    private SeatType seatType;
+    private boolean isActive = true;
+    private Integer screenId;
+    private Integer reservedSeatId;
 }

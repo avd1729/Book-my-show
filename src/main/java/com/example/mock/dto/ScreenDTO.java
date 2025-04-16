@@ -7,9 +7,9 @@ import lombok.Setter;
 @Getter
 @Setter
 public class ScreenDTO {
-    public int screenNumber;
-    public int seatingCapacity;
-    public ScreenType screenType;
-    public boolean isActive = true;
-    public Integer theaterId;
+    private int screenNumber;
+    private int seatingCapacity;
+    private ScreenType screenType;
+    private boolean isActive = true;
+    private Integer theaterId;
 }

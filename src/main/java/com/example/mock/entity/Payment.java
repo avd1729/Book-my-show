@@ -20,19 +20,19 @@ public class Payment {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    public int paymentId;
+    private int paymentId;
 
-    public int amount;
-    public String paymentType;
-    public int transactionId;
+    private int amount;
+    private String paymentType;
+    private int transactionId;
 
     @Enumerated(EnumType.STRING)
-    public PaymentStatus paymentStatus;
+    private PaymentStatus paymentStatus;
 
-    public Timestamp paymentTime;
+    private Timestamp paymentTime;
 
     @JsonIgnore
     @OneToOne
     @JoinColumn(name = "reservation_id", referencedColumnName = "reservationId", nullable = false)
-    public Reservation reservation;
+    private Reservation reservation;
 }

@@ -18,23 +18,23 @@ public class Seat {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    public Integer seatId;
+    private Integer seatId;
 
-    public String seatRow;
-    public int seatNumber;
+    private String seatRow;
+    private int seatNumber;
 
     @Enumerated(EnumType.STRING)
-    public SeatType seatType;
+    private SeatType seatType;
 
-    public boolean isActive = true;
+    private boolean isActive = true;
 
     @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "screen_id", referencedColumnName = "screenId", nullable = false)
-    public Screen screen;
+    private Screen screen;
 
     @JsonIgnore
     @OneToOne(mappedBy = "seat")
-    public ReservedSeat reservedSeat;
+    private ReservedSeat reservedSeat;
 
 }

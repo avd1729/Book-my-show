@@ -24,25 +24,25 @@ public class Movie implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    public int movieId;
+    private int movieId;
 
-    public String title;
-    public String description;
-    public String genre;
-    public int duration;
-    public String rating;
-    public Date releaseDate;
-    public Date endDate;
-    public String posterUrl;
-    public String backdropUrl;
-    public String trailerUrl;
-    public String language;
-
-    @JsonIgnore
-    @OneToMany(mappedBy = "movie", cascade = CascadeType.ALL, orphanRemoval = true)
-    public List<ShowTime> showTimes = new ArrayList<>();
+    private String title;
+    private String description;
+    private String genre;
+    private int duration;
+    private String rating;
+    private Date releaseDate;
+    private Date endDate;
+    private String posterUrl;
+    private String backdropUrl;
+    private String trailerUrl;
+    private String language;
 
     @JsonIgnore
     @OneToMany(mappedBy = "movie", cascade = CascadeType.ALL, orphanRemoval = true)
-    public List<Review> reviews = new ArrayList<>();
+    private List<ShowTime> showTimes = new ArrayList<>();
+
+    @JsonIgnore
+    @OneToMany(mappedBy = "movie", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Review> reviews = new ArrayList<>();
 }

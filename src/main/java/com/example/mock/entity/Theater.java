@@ -22,19 +22,19 @@ public class Theater implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    public int theaterId;
-    public String theaterName;
-    public String theaterAddress;
-    public String theaterCity;
-    public String theaterState;
-    public int zipCode;
-    public int totalScreens;
+    private int theaterId;
+    private String theaterName;
+    private String theaterAddress;
+    private String theaterCity;
+    private String theaterState;
+    private int zipCode;
+    private int totalScreens;
 
     @JsonProperty("isActive")
-    public boolean isActive = true;
+    private boolean isActive = true;
 
     @JsonIgnore
     @OneToMany(mappedBy = "theater", cascade = CascadeType.ALL, orphanRemoval = true)
-    public List<Screen> screens = new ArrayList<>();
+    private List<Screen> screens = new ArrayList<>();
 
 }
