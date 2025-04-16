@@ -9,6 +9,7 @@ import com.example.mock.service.movie.MovieService;
 import com.example.mock.service.screen.ScreenService;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -26,6 +27,7 @@ public class ShowTimeService implements IShowTimeService{
     private ShowTimeRepository showTimeRepository;
 
     @Override
+    @Cacheable(value = "showtimes", key = "'by_id'")
     public ShowTime getShowTimeById(Integer showTimeId) {
         return showTimeRepository.findById(showTimeId).orElse(null);
     }
@@ -77,16 +79,19 @@ public class ShowTimeService implements IShowTimeService{
     }
 
     @Override
+    @Cacheable(value = "showtimes", key = "'all_showtimes'")
     public List<ShowTime> getAllShowTimes() {
         return showTimeRepository.findAll();
     }
 
     @Override
+    @Cacheable(value = "showtimes", key = "#movieId")
     public List<ShowTime> getAllShowTimesByMovie(Integer movieId) {
         return showTimeRepository.findShowTimesByMovieId(movieId);
     }
 
     @Override
+    @Cacheable(value = "showtimes", key = "#screenId")
     public List<ShowTime> getAllShowTimesByScreen(Integer screenId) {
         return showTimeRepository.findShowTimesByScreenId(screenId);
     }
