@@ -7,13 +7,14 @@ import com.example.mock.entity.ShowTime;
 import com.example.mock.repo.ShowTimeRepository;
 import com.example.mock.service.movie.MovieService;
 import com.example.mock.service.screen.ScreenService;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
-public class ShowTimeService implements IShowTime{
+public class ShowTimeService implements IShowTimeService{
 
     @Autowired
     private MovieService movieService;
@@ -23,6 +24,11 @@ public class ShowTimeService implements IShowTime{
 
     @Autowired
     private ShowTimeRepository showTimeRepository;
+
+    @Override
+    public ShowTime getShowTimeById(Integer showTimeId) {
+        return showTimeRepository.findById(showTimeId).orElse(null);
+    }
 
     @Override
     public ShowTime addShowTime(ShowTimeDTO showTimeDTO) {
@@ -44,17 +50,30 @@ public class ShowTimeService implements IShowTime{
 
     @Override
     public ShowTime updateShowTime(ShowTimeDTO showTimeDTO, Integer showTimeId) {
-        return null;
+        ShowTime showTime = getShowTimeById(showTimeId);
+        if(showTime != null){
+            showTime.setStartTime(showTimeDTO.getStartTime());
+            showTime.setEndTime(showTimeDTO.getEndTime());
+            showTime.setPrice(showTimeDTO.getPrice());
+            showTime.setActive(showTime.isActive());
+
+            Movie movie = movieService.getById(showTimeDTO.getMovieId());
+            showTime.setMovie(movie);
+            Screen screen = screenService.getScreenById(showTimeDTO.getScreenId());
+            showTime.setScreen(screen);
+
+            return showTimeRepository.save(showTime);
+        } else {
+            return null;
+        }
     }
 
     @Override
+    @Transactional
     public ShowTime deleteShowTime(Integer showTimeId) {
-        return null;
-    }
-
-    @Override
-    public ShowTime getShowTime(Integer showTimeId) {
-        return null;
+        ShowTime showTime = getShowTimeById(showTimeId);
+        showTimeRepository.softDeleteById(showTimeId);
+        return showTime;
     }
 
     @Override

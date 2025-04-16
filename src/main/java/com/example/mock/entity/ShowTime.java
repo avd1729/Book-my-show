@@ -1,6 +1,7 @@
 package com.example.mock.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -26,6 +27,8 @@ public class ShowTime {
     public Timestamp startTime;
     public Timestamp endTime;
     public int price;
+
+    @JsonProperty("isActive")
     public boolean isActive = true;
 
     @JsonIgnore

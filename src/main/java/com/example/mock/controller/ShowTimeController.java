@@ -30,4 +30,17 @@ public class ShowTimeController {
         List<ShowTime> result = showTimeService.getAllShowTimes();
         return ResponseEntity.status(HttpStatus.FOUND).body(result);
     }
+
+    @PutMapping("/update/{id}")
+    ResponseEntity<ShowTime> updateShowTime(@RequestBody ShowTimeDTO showTimeDTO, @PathVariable Integer id){
+        ShowTime result = showTimeService.updateShowTime(showTimeDTO, id);
+        return ResponseEntity.status(HttpStatus.CREATED).body(result);
+    }
+
+    @DeleteMapping("/delete/{id}")
+    ResponseEntity<ShowTime> deleteShowTime(@PathVariable Integer id){
+        ShowTime result = showTimeService.deleteShowTime(id);
+        return ResponseEntity.status(HttpStatus.OK).body(result);
+
+    }
 }
