@@ -83,11 +83,11 @@ public class ShowTimeService implements IShowTimeService{
 
     @Override
     public List<ShowTime> getAllShowTimesByMovie(Integer movieId) {
-        return List.of();
+        return showTimeRepository.findShowTimesByMovieId(movieId);
     }
 
     @Override
     public List<ShowTime> getAllShowTimesByScreen(Integer screenId) {
-        return List.of();
+        return showTimeRepository.findShowTimesByScreenId(screenId);
     }
 }

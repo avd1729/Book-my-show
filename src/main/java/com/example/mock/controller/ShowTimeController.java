@@ -43,4 +43,17 @@ public class ShowTimeController {
         return ResponseEntity.status(HttpStatus.OK).body(result);
 
     }
+
+    @GetMapping("/movie/{id}")
+    ResponseEntity<List<ShowTime>> getAllShowTimesByMovie(@PathVariable Integer id){
+        List<ShowTime> result = showTimeService.getAllShowTimesByMovie(id);
+        return ResponseEntity.status(HttpStatus.FOUND).body(result);
+    }
+
+    @GetMapping("/screen/{id}")
+    ResponseEntity<List<ShowTime>> getAllShowTimesByScreen(@PathVariable Integer id){
+        List<ShowTime> result = showTimeService.getAllShowTimesByScreen(id);
+        return ResponseEntity.status(HttpStatus.FOUND).body(result);
+    }
+
 }

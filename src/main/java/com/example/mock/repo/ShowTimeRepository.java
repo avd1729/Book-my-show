@@ -7,9 +7,19 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 @Repository
 public interface ShowTimeRepository extends JpaRepository<ShowTime, Integer> {
+
     @Modifying
     @Query("UPDATE ShowTime s SET s.isActive = false WHERE s.showtimeId = :id")
     void softDeleteById(@Param("id") int id);
+
+    @Query("SELECT s FROM ShowTime s WHERE s.movie.movieId = :movieId")
+    List<ShowTime> findShowTimesByMovieId(@Param("movieId") Integer movieId);
+
+    @Query("SELECT s FROM ShowTime s WHERE s.screen.screenId = :screenId")
+    List<ShowTime> findShowTimesByScreenId(@Param("screenId") Integer screenId);
+
 }
