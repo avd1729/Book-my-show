@@ -18,7 +18,7 @@ public class Seat {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    public long seatId;
+    public Integer seatId;
 
     public String seatRow;
     public int seatNumber;
