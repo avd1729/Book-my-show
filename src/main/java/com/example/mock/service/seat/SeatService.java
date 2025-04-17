@@ -26,21 +26,31 @@ public class SeatService implements ISeatService{
         return seatRepository.findByScreen_ScreenIdAndIsActiveTrueAndReservedSeatIsNull(screenId);
     }
 
+    public boolean checkAndLockSeat(String showtimeId, String seatId, String userId, long ttlSeconds) {
+        String redisKey = "seat_lock:" + showtimeId + ":" + seatId;
+
+        String currentOwner = redisTemplate.opsForValue().get(redisKey);
+
+        if (currentOwner == null || currentOwner.equals(userId)) {
+            return lockSeat(showtimeId, seatId, userId, ttlSeconds);
+        }
+
+        return false;
+    }
+
     public boolean lockSeat(String showtimeId, String seatId, String userId, long ttlSeconds) {
         String redisKey = "seat_lock:" + showtimeId + ":" + seatId;
 
         Boolean isLocked = redisTemplate.opsForValue().setIfAbsent(redisKey, userId, ttlSeconds, TimeUnit.SECONDS);
-
         if (Boolean.TRUE.equals(isLocked)) {
             return true; // New lock acquired
         }
 
-        // If already locked, check if it's locked by the same user
+        // Already locked, check if it's locked by the same user
         String currentOwner = redisTemplate.opsForValue().get(redisKey);
         if (userId.equals(currentOwner)) {
-            // Optional: Refresh TTL if you want to extend the lock
             redisTemplate.expire(redisKey, ttlSeconds, TimeUnit.SECONDS);
-            return true; // Same user trying again, allow it
+            return true; // Refresh TTL
         }
 
         return false; // Locked by someone else
