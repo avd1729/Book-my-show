@@ -65,8 +65,9 @@ public class BookingService implements IBookingService {
 
         // Step 3: Create Payment and link it to Reservation
         PaymentDTO paymentDTO = new PaymentDTO();
-        paymentDTO.setAmount(amount);
+        paymentDTO.setAmount(reservation.getTotalAmount());
         paymentDTO.setPaymentType("CARD"); // You can replace with actual value
+        paymentDTO.setPaymentStatus(PaymentStatus.PAID);
         paymentDTO.setTransactionId(123456); // Replace with actual transaction ID
         paymentDTO.setPaymentTime(new Timestamp(System.currentTimeMillis()));
         paymentDTO.setReservationDTO(reservationDTO); // Link payment to reservation
