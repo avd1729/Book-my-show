@@ -1,9 +1,9 @@
 -- Insert Users
 INSERT INTO users (username, is_admin, email, password, first_name, last_name, phone_number)
 VALUES
-    ('adminjoe', true,'admin@admin.com', '$2a$10$tQkoCgXEry/lMg1olz2N1.K9hj4xnxs5odli0BsMNu0Fe0Yqv0HcG', 'admin', 'admin', '90871237465'),
-    ('john123', false,'john.doe@example.com', '$2a$10$bK4sngBXPZ99egFe6srq7ei/YFDKORnImGsMxqXeFA/BVOR15LERa', 'John', 'Doe', '1234567890'),
-    ('jane456', false,'jane.smith@example.com', '$2a$10$bK4sngBXPZ99egFe6srq7ei/YFDKORnImGsMxqXeFA/BVOR15LERa', 'Jane', 'Smith', '9876543210');
+    ('adminjoe', true, 'admin@admin.com', '$2a$10$tQkoCgXEry/lMg1olz2N1.K9hj4xnxs5odli0BsMNu0Fe0Yqv0HcG', 'admin', 'admin', '90871237465'),
+    ('john123', false, 'john.doe@example.com', '$2a$10$bK4sngBXPZ99egFe6srq7ei/YFDKORnImGsMxqXeFA/BVOR15LERa', 'John', 'Doe', '1234567890'),
+    ('jane456', false, 'jane.smith@example.com', '$2a$10$bK4sngBXPZ99egFe6srq7ei/YFDKORnImGsMxqXeFA/BVOR15LERa', 'Jane', 'Smith', '9876543210');
 
 -- Insert Theaters (Added `is_active`)
 INSERT INTO theaters (theater_name, theater_address, theater_city, theater_state, zip_code, total_screens, is_active)
@@ -29,7 +29,12 @@ INSERT INTO seats (screen_id, seat_row, seat_number, seat_type, is_active)
 VALUES
     (1, 'A', 1, 'Regular', true),
     (1, 'A', 2, 'Premium', true),
-    (2, 'B', 1, 'Recliner', true);
+    (1, 'A', 3, 'Regular', true),
+    (1, 'A', 4, 'Premium', true),
+    (1, 'B', 1, 'Recliner', true),
+    (1, 'B', 2, 'Recliner', true),
+    (2, 'B', 1, 'Recliner', true),
+    (2, 'B', 2, 'Recliner', true);
 
 -- Insert Showtimes
 INSERT INTO show_times (movie_id, screen_id, start_time, end_time, price, is_active)
@@ -43,11 +48,15 @@ VALUES
     (1, 1, 'Confirmed', 25.98, 'Paid'),
     (2, 2, 'Pending', 10.99, 'Pending');
 
--- Insert Reserved Seats
+-- Insert Reserved Seats (Multiple Seats for Testing Booking Multiple Unreserved Seats)
 INSERT INTO reserved_seats (reservation_id, seat_id, price)
 VALUES
     (1, 1, 12.99),
-    (1, 2, 12.99);
+    (1, 2, 12.99),
+    (1, 3, 12.99),    -- Additional seat booked
+    (1, 4, 12.99),    -- Additional seat booked
+    (1, 5, 12.99);    -- Additional seat booked
+
 
 -- Insert Payments
 INSERT INTO payments (reservation_id, amount, payment_type, transaction_id, payment_status)
