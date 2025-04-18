@@ -1,3 +1,18 @@
+DROP TABLE IF EXISTS reserved_seats;
+
+CREATE TABLE reserved_seats (
+                                reserved_seat_id INT AUTO_INCREMENT PRIMARY KEY,
+                                reservation_id INT,
+                                seat_id INT,
+                                price DECIMAL(10, 2),
+                                showtime_id INT,
+                                CONSTRAINT fk_reservation FOREIGN KEY (reservation_id) REFERENCES reservations(reservation_id) ON DELETE CASCADE,
+                                CONSTRAINT fk_showtime FOREIGN KEY (showtime_id) REFERENCES show_times(showtime_id) ON DELETE CASCADE,
+                                CONSTRAINT fk_seat FOREIGN KEY (seat_id) REFERENCES seats(seat_id) ON DELETE CASCADE,
+                                CONSTRAINT unique_seat_showtime UNIQUE (seat_id, showtime_id)
+);
+
+
 -- Insert Users
 INSERT INTO users (username, is_admin, email, password, first_name, last_name, phone_number)
 VALUES
@@ -40,6 +55,8 @@ VALUES
 INSERT INTO show_times (movie_id, screen_id, start_time, end_time, price, is_active)
 VALUES
     (1, 1, '2025-04-18 17:20:00', '2025-04-18 17:21:00', 12.99, true),
+    (2, 2, '2025-05-03 18:00:00', '2025-05-03 20:30:00', 10.99, true),
+    (2, 2, '2025-05-03 18:00:00', '2025-05-03 20:30:00', 10.99, true),
     (2, 2, '2025-05-03 18:00:00', '2025-05-03 20:30:00', 10.99, true);
 
 -- Insert Reservations
@@ -49,13 +66,13 @@ VALUES
     (2, 2, 'Pending', 10.99, 'Pending');
 
 -- Insert Reserved Seats (Multiple Seats for Testing Booking Multiple Unreserved Seats)
-INSERT INTO reserved_seats (reservation_id, seat_id, price)
+INSERT INTO reserved_seats (reservation_id, seat_id, price, showtime_id)
 VALUES
-    (1, 1, 12.99),
-    (1, 2, 12.99),
-    (1, 3, 12.99),    -- Additional seat booked
-    (1, 4, 12.99),    -- Additional seat booked
-    (1, 5, 12.99);    -- Additional seat booked
+    (1, 1, 12.99, 1),
+    (1, 2, 12.99, 1),
+    (1, 3, 12.99, 2),    -- Additional seat booked
+    (1, 4, 12.99, 2),    -- Additional seat booked
+    (1, 5, 12.99, 2);    -- Additional seat booked
 
 
 -- Insert Payments
@@ -112,13 +129,13 @@ ALTER TABLE payments
             REFERENCES reservations(reservation_id)
             ON DELETE CASCADE;
 
--- Drop the existing foreign key constraint on RESERVED_SEATS
-ALTER TABLE reserved_seats
-DROP CONSTRAINT FKCWD72PD9H4YL47QKEUEGS1MVS;
+-- -- Drop the existing foreign key constraint on RESERVED_SEATS
+-- ALTER TABLE reserved_seats
+-- DROP CONSTRAINT FKCWD72PD9H4YL47QKEUEGS1MVS;
 
--- Add a new foreign key constraint with ON DELETE CASCADE
-ALTER TABLE reserved_seats
-    ADD CONSTRAINT FKCWD72PD9H4YL47QKEUEGS1MVS
-        FOREIGN KEY (reservation_id)
-            REFERENCES reservations(reservation_id)
-            ON DELETE CASCADE;
+-- -- Add a new foreign key constraint with ON DELETE CASCADE
+-- ALTER TABLE reserved_seats
+--     ADD CONSTRAINT FKCWD72PD9H4YL47QKEUEGS1MVS
+--         FOREIGN KEY (reservation_id)
+--             REFERENCES reservations(reservation_id)
+--             ON DELETE CASCADE;

@@ -9,6 +9,5 @@ import java.util.List;
 @Repository
 public interface SeatRepository extends JpaRepository<Seat, Integer> {
 
-    // This method returns only the seats that are not reserved (reservedSeat is null) & active.
-    List<Seat> findByScreen_ScreenIdAndIsActiveTrueAndReservedSeatIsNull(int screenId);
+    List<Seat> findByScreen_ScreenIdAndIsActiveTrue(int screenId);
 }

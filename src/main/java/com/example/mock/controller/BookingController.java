@@ -20,7 +20,7 @@ public class BookingController {
     @PostMapping("/book")
     public ResponseEntity<String> bookSeats(@RequestBody BookingRequestDTO request) {
         boolean result = bookingService.bookSeats(
-                request.getShowtimeId(),
+                request.getShowTimeId(),
                 request.getSeatIds(),
                 request.getUserId(),
                 request.getAmount(),

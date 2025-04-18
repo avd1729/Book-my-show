@@ -24,7 +24,7 @@ public class SeatService implements ISeatService{
     private RedisUnlockScript redisUnlockScript;
 
     public List<Seat> getSeatsForScreen(int screenId) {
-        return seatRepository.findByScreen_ScreenIdAndIsActiveTrueAndReservedSeatIsNull(screenId);
+        return seatRepository.findByScreen_ScreenIdAndIsActiveTrue(screenId);
     }
 
     public boolean checkAndLockSeat(String showtimeId, String seatId, String userId, long ttlSeconds) {

@@ -27,10 +27,11 @@ public class ShowTimeService implements IShowTimeService{
     private ShowTimeRepository showTimeRepository;
 
     @Override
-    @Cacheable(value = "showtimes", key = "'by_id'")
     public ShowTime getShowTimeById(Integer showTimeId) {
-        return showTimeRepository.findById(showTimeId).orElse(null);
+        return showTimeRepository.findById(showTimeId)
+                .orElseThrow(() -> new RuntimeException("Showtime not found with id: " + showTimeId));
     }
+
 
     @Override
     public ShowTime addShowTime(ShowTimeDTO showTimeDTO) {

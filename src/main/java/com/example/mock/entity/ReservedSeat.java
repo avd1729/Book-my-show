@@ -12,7 +12,8 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-@Table(name = "reserved_seats")
+@Table(name = "reserved_seats",
+        uniqueConstraints = @UniqueConstraint(columnNames = {"seat_id", "showtime_id"}))
 public class ReservedSeat {
 
     @Id
@@ -29,5 +30,10 @@ public class ReservedSeat {
     @OneToOne
     @JoinColumn(name = "seat_id", referencedColumnName = "seatId", nullable = false)
     private Seat seat;
+
+    @JsonIgnore
+    @ManyToOne
+    @JoinColumn(name = "showtime_id", referencedColumnName = "showtimeId", nullable = false)
+    private ShowTime showTime;
 
 }

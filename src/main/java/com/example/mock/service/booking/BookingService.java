@@ -40,13 +40,13 @@ public class BookingService implements IBookingService {
 
     @Transactional
     @Override
-    public boolean bookSeats(String showtimeId, List<String> seatIds, String userId, int amount, PaymentType paymentType, long ttlSeconds) {
+    public boolean bookSeats(Integer showTimeId, List<Integer> seatIds, Integer userId, int amount, PaymentType paymentType, long ttlSeconds) {
 
         if (seatIds == null || seatIds.isEmpty()) return false;
 
         // Step 1: Check seat availability and lock them
-        for (String seatId : seatIds) {
-            if (!seatService.checkAndLockSeat(showtimeId, seatId, userId, ttlSeconds)) {
+        for (Integer seatId : seatIds) {
+            if (!seatService.checkAndLockSeat(String.valueOf(showTimeId), String.valueOf(seatId), String.valueOf(seatId), ttlSeconds)) {
                 return false;
             }
         }
@@ -56,8 +56,8 @@ public class BookingService implements IBookingService {
         reservationDTO.setReservationStatus(ReservationStatus.PENDING);
         reservationDTO.setTotalAmount(amount);
         reservationDTO.setPaymentStatus(PaymentStatus.PENDING);
-        reservationDTO.setUserId(Integer.parseInt(userId));
-        reservationDTO.setShowTimeId(Integer.parseInt(showtimeId));
+        reservationDTO.setUserId(userId);
+        reservationDTO.setShowTimeId(showTimeId);
 
         Reservation reservation = reservationService.addReservation(reservationDTO);
         if (reservation == null) return false;
@@ -89,26 +89,20 @@ public class BookingService implements IBookingService {
 
         // Step 4: Create Reserved Seats
         int pricePerSeat = amount / seatIds.size();
-        for (String seatId : seatIds) {
-            Seat seat = seatService.getSeatById(Integer.parseInt(seatId));
+        for (Integer seatId : seatIds) {
+            Seat seat = seatService.getSeatById(seatId);
             if (seat == null) return false;
-
-            SeatDTO seatDTO = new SeatDTO();
-            seatDTO.setSeatRow(seat.getSeatRow());
-            seatDTO.setSeatNumber(seat.getSeatNumber());
-            seatDTO.setSeatType(seat.getSeatType());
-            seatDTO.setActive(seat.isActive());
-            seatDTO.setScreenId(seat.getSeatId());
 
             ReservedSeatDTO reservedSeatDTO = new ReservedSeatDTO();
             reservedSeatDTO.setPrice(pricePerSeat);
             reservedSeatDTO.setReservationId(reservation.getReservationId());
-            reservedSeatDTO.setSeatDTO(seatDTO);
-
-            ReservedSeat reservedSeat = reservedSeatService.addReservedSeat(reservedSeatDTO);
+            reservedSeatDTO.setSeatId(seatId);
+            reservedSeatDTO.setShowTimeId(showTimeId);
+            System.out.println("Showtime xx"+showTimeId);
+            System.out.println("Seat xx" + seat.getSeatId());
+            ReservedSeat reservedSeat = reservedSeatService.addReservedSeat(reservedSeatDTO, showTimeId, seat.getSeatId());
             if (reservedSeat == null) return false;
 
-            seatDTO.setReservedSeatId(reservedSeat.getReservedSeatId());
         }
 
         return true;

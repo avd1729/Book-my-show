@@ -9,9 +9,9 @@ import java.util.List;
 @Getter
 @Setter
 public class BookingRequestDTO {
-    private String showtimeId;
-    private List<String> seatIds;
-    private String userId;
+    private Integer showTimeId;
+    private List<Integer> seatIds;
+    private Integer userId;
     private int amount;
     private PaymentType paymentType;
     private long ttlSeconds;

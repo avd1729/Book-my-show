@@ -9,5 +9,6 @@ public class ReservedSeatDTO {
     private int reservedSeatId;
     private int price;
     private int reservationId;
-    private SeatDTO seatDTO;
+    private Integer seatId;
+    private Integer showTimeId;
 }

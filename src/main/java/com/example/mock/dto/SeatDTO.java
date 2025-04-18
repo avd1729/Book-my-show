@@ -13,5 +13,4 @@ public class SeatDTO {
     private SeatType seatType;
     private boolean isActive = true;
     private Integer screenId;
-    private Integer reservedSeatId;
 }

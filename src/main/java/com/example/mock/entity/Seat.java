@@ -33,8 +33,4 @@ public class Seat {
     @JoinColumn(name = "screen_id", referencedColumnName = "screenId", nullable = false)
     private Screen screen;
 
-    @JsonIgnore
-    @OneToOne(mappedBy = "seat")
-    private ReservedSeat reservedSeat;
-
 }
