@@ -41,4 +41,8 @@ public class UserService implements IUserService{
             throw new RuntimeException(e);
         }
     }
+
+    public User getUserById(Integer userId){
+        return userRepository.findById(userId).orElse(null);
+    }
 }

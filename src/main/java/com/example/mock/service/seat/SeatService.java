@@ -1,5 +1,6 @@
 package com.example.mock.service.seat;
 
+import com.example.mock.dto.SeatDTO;
 import com.example.mock.entity.Seat;
 import com.example.mock.repo.SeatRepository;
 import com.example.mock.scripts.RedisUnlockScript;
@@ -67,5 +68,13 @@ public class SeatService implements ISeatService{
         );
 
         return result != null && result == 1;
+    }
+
+    public Seat getSeatById(Integer seatId){
+        return seatRepository.findById(seatId).orElse(null);
+    }
+
+    public Seat updateSeat(SeatDTO seatDTO, Integer seatId){
+        return null;
     }
 }
