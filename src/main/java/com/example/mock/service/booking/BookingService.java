@@ -80,6 +80,11 @@ public class BookingService implements IBookingService {
         reservationDTO.setPaymentDTO(paymentDTO);
         reservationService.updateReservation(reservationDTO, reservation.getReservationId());
 
+        // Update reservation status & payment status after successful payment
+        reservationDTO.setReservationStatus(ReservationStatus.CONFIRMED);
+        reservationDTO.setPaymentStatus(PaymentStatus.PAID);
+        reservationService.updateReservation(reservationDTO, reservation.getReservationId());
+
         // Step 4: Create Reserved Seats
         int pricePerSeat = amount / seatIds.size();
         for (String seatId : seatIds) {
@@ -106,4 +111,5 @@ public class BookingService implements IBookingService {
 
         return true;
     }
+
 }
