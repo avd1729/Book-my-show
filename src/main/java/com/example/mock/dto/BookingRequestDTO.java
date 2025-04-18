@@ -1,5 +1,6 @@
 package com.example.mock.dto;
 
+import com.example.mock.enums.PaymentType;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -12,5 +13,6 @@ public class BookingRequestDTO {
     private List<String> seatIds;
     private String userId;
     private int amount;
+    private PaymentType paymentType;
     private long ttlSeconds;
 }

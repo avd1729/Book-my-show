@@ -52,8 +52,8 @@ VALUES
 -- Insert Payments
 INSERT INTO payments (reservation_id, amount, payment_type, transaction_id, payment_status)
 VALUES
-    (1, 25.98, 'Credit Card', '12345', 'Paid'),
-    (2, 10.99, 'PayPal', '67890', 'Pending');
+    (1, 25.98, 'CREDIT_CARD', '12345', 'Paid'),
+    (2, 10.99, 'PAYPAL', '67890', 'Pending');
 
 -- Insert Reviews
 INSERT INTO reviews (user_id, movie_id, rating, review_text)

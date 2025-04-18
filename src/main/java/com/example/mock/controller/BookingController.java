@@ -24,6 +24,7 @@ public class BookingController {
                 request.getSeatIds(),
                 request.getUserId(),
                 request.getAmount(),
+                request.getPaymentType(),
                 request.getTtlSeconds()
         );
 

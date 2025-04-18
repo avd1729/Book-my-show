@@ -1,6 +1,7 @@
 package com.example.mock.entity;
 
 import com.example.mock.enums.PaymentStatus;
+import com.example.mock.enums.PaymentType;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -23,8 +24,10 @@ public class Payment {
     private int paymentId;
 
     private int amount;
-    private String paymentType;
-    private int transactionId;
+
+    @Enumerated(EnumType.STRING)
+    private PaymentType paymentType;
+    private String transactionId;
 
     @Enumerated(EnumType.STRING)
     private PaymentStatus paymentStatus;

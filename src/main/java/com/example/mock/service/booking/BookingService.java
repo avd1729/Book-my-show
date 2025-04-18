@@ -1,5 +1,6 @@
 package com.example.mock.service.booking;
 
+import java.util.UUID;
 import com.example.mock.dto.PaymentDTO;
 import com.example.mock.dto.ReservationDTO;
 import com.example.mock.dto.ReservedSeatDTO;
@@ -9,6 +10,7 @@ import com.example.mock.entity.Reservation;
 import com.example.mock.entity.ReservedSeat;
 import com.example.mock.entity.Seat;
 import com.example.mock.enums.PaymentStatus;
+import com.example.mock.enums.PaymentType;
 import com.example.mock.enums.ReservationStatus;
 import com.example.mock.service.payment.PaymentService;
 import com.example.mock.service.reservation.ReservationService;
@@ -38,7 +40,7 @@ public class BookingService implements IBookingService {
 
     @Transactional
     @Override
-    public boolean bookSeats(String showtimeId, List<String> seatIds, String userId, int amount, long ttlSeconds) {
+    public boolean bookSeats(String showtimeId, List<String> seatIds, String userId, int amount, PaymentType paymentType, long ttlSeconds) {
 
         if (seatIds == null || seatIds.isEmpty()) return false;
 
@@ -66,9 +68,9 @@ public class BookingService implements IBookingService {
         // Step 3: Create Payment and link it to Reservation
         PaymentDTO paymentDTO = new PaymentDTO();
         paymentDTO.setAmount(reservation.getTotalAmount());
-        paymentDTO.setPaymentType("CARD"); // You can replace with actual value
+        paymentDTO.setPaymentType(paymentType);
         paymentDTO.setPaymentStatus(PaymentStatus.PAID);
-        paymentDTO.setTransactionId(123456); // Replace with actual transaction ID
+        paymentDTO.setTransactionId(UUID.randomUUID().toString());
         paymentDTO.setPaymentTime(new Timestamp(System.currentTimeMillis()));
         paymentDTO.setReservationDTO(reservationDTO); // Link payment to reservation
 
