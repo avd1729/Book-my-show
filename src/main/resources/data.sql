@@ -34,8 +34,8 @@ VALUES
 -- Insert Showtimes
 INSERT INTO show_times (movie_id, screen_id, start_time, end_time, price, is_active)
 VALUES
-    (1, 1, '2025-02-03 14:00:00', '2025-02-03 16:30:00', 12.99, true),
-    (2, 2, '2025-02-03 18:00:00', '2025-02-03 20:30:00', 10.99, true);
+    (1, 1, '2025-04-18 17:20:00', '2025-04-18 17:21:00', 12.99, true),
+    (2, 2, '2025-05-03 18:00:00', '2025-05-03 20:30:00', 10.99, true);
 
 -- Insert Reservations
 INSERT INTO reservations (user_id, showtime_id, reservation_status, total_amount, payment_status)

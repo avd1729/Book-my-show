@@ -25,6 +25,11 @@ public class Review {
     private String reviewText;
     private Timestamp reviewTime;
 
+    @PrePersist
+    protected void onCreate() {
+        this.reviewTime = new Timestamp(System.currentTimeMillis());
+    }
+
     @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "user_id", referencedColumnName = "userId", nullable = false)

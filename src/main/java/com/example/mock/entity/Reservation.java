@@ -27,6 +27,11 @@ public class Reservation {
 
     private Timestamp reservationTime;
 
+    @PrePersist
+    protected void onCreate() {
+        this.reservationTime = new Timestamp(System.currentTimeMillis());
+    }
+
     @Enumerated(EnumType.STRING)
     private ReservationStatus reservationStatus;
 

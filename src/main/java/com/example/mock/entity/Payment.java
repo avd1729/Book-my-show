@@ -31,6 +31,11 @@ public class Payment {
 
     private Timestamp paymentTime;
 
+    @PrePersist
+    protected void onCreate() {
+        this.paymentTime = new Timestamp(System.currentTimeMillis());
+    }
+
     @JsonIgnore
     @OneToOne
     @JoinColumn(name = "reservation_id", referencedColumnName = "reservationId", nullable = false)
