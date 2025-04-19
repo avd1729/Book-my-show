@@ -3,7 +3,6 @@ package com.example.mock.controller;
 import com.example.mock.dto.ShowTimeDTO;
 import com.example.mock.entity.ShowTime;
 import com.example.mock.service.showtime.ShowTimeService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -15,8 +14,11 @@ import java.util.List;
 @RequestMapping("/api/showtime")
 public class ShowTimeController {
 
-    @Autowired
-    private ShowTimeService showTimeService;
+    private final ShowTimeService showTimeService;
+
+    public ShowTimeController(ShowTimeService showTimeService) {
+        this.showTimeService = showTimeService;
+    }
 
     @PostMapping("/add")
     @PreAuthorize("hasRole('ADMIN')")

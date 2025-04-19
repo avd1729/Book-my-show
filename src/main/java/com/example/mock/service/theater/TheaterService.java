@@ -6,7 +6,6 @@ import com.example.mock.entity.Theater;
 import com.example.mock.repo.ScreenRepository;
 import com.example.mock.repo.TheaterRepository;
 import jakarta.transaction.Transactional;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -14,11 +13,14 @@ import java.util.List;
 @Service
 public class TheaterService implements ITheaterService{
 
-    @Autowired
-    private TheaterRepository theaterRepository;
+    private final TheaterRepository theaterRepository;
 
-    @Autowired
-    private ScreenRepository screenRepository;
+    private final ScreenRepository screenRepository;
+
+    public TheaterService(TheaterRepository theaterRepository, ScreenRepository screenRepository) {
+        this.theaterRepository = theaterRepository;
+        this.screenRepository = screenRepository;
+    }
 
     @Override
     public Theater addTheater(TheaterDTO theaterDTO) {

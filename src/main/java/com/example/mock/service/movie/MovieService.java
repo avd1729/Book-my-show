@@ -4,7 +4,6 @@ import com.example.mock.dto.MovieDTO;
 import com.example.mock.entity.Movie;
 import com.example.mock.repo.MovieRepository;
 import jakarta.transaction.Transactional;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
@@ -14,8 +13,11 @@ import java.util.List;
 @Service
 public class MovieService implements IMovieService{
 
-    @Autowired
-    private MovieRepository movieRepository;
+    private final MovieRepository movieRepository;
+
+    public MovieService(MovieRepository movieRepository) {
+        this.movieRepository = movieRepository;
+    }
 
     @Override
     public Movie getById(Integer movieId) {

@@ -3,7 +3,6 @@ package com.example.mock.controller;
 import com.example.mock.dto.MovieDTO;
 import com.example.mock.entity.Movie;
 import com.example.mock.service.movie.MovieService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -17,8 +16,11 @@ import java.util.List;
 @RequestMapping("/api/movie")
 public class MovieController {
 
-    @Autowired
-    private MovieService movieService;
+    private final MovieService movieService;
+
+    public MovieController(MovieService movieService) {
+        this.movieService = movieService;
+    }
 
     @PostMapping("/add")
     @PreAuthorize("hasRole('ADMIN')")

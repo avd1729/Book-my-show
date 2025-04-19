@@ -5,7 +5,6 @@ import com.example.mock.dto.AuthResponse;
 import com.example.mock.entity.User;
 import com.example.mock.repo.UserRepository;
 import com.example.mock.service.jwt.JwtUtil;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -14,14 +13,17 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 public class AuthController {
 
-    @Autowired
-    private AuthenticationManager authenticationManager;
+    private final AuthenticationManager authenticationManager;
 
-    @Autowired
-    private UserRepository userRepo;
+    private final UserRepository userRepo;
 
-    @Autowired
-    private JwtUtil jwtUtil;
+    private final JwtUtil jwtUtil;
+
+    public AuthController(AuthenticationManager authenticationManager, UserRepository userRepo, JwtUtil jwtUtil) {
+        this.authenticationManager = authenticationManager;
+        this.userRepo = userRepo;
+        this.jwtUtil = jwtUtil;
+    }
 
     @PostMapping("/authenticate")
     public ResponseEntity<?> createAuthenticationToken(@RequestBody AuthRequest request) {

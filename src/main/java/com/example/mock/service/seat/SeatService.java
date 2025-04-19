@@ -4,7 +4,6 @@ import com.example.mock.dto.SeatDTO;
 import com.example.mock.entity.Seat;
 import com.example.mock.repo.SeatRepository;
 import com.example.mock.scripts.RedisUnlockScript;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
 
@@ -14,14 +13,18 @@ import java.util.concurrent.TimeUnit;
 
 @Service
 public class SeatService implements ISeatService{
-    @Autowired
-    private SeatRepository seatRepository;
 
-    @Autowired
-    private RedisTemplate<String, String> redisTemplate;
+    private final SeatRepository seatRepository;
 
-    @Autowired
-    private RedisUnlockScript redisUnlockScript;
+    private final RedisTemplate<String, String> redisTemplate;
+
+    private final RedisUnlockScript redisUnlockScript;
+
+    public SeatService(SeatRepository seatRepository, RedisTemplate<String, String> redisTemplate, RedisUnlockScript redisUnlockScript) {
+        this.seatRepository = seatRepository;
+        this.redisTemplate = redisTemplate;
+        this.redisUnlockScript = redisUnlockScript;
+    }
 
     public List<Seat> getSeatsForScreen(int screenId) {
         return seatRepository.findByScreen_ScreenIdAndIsActiveTrue(screenId);

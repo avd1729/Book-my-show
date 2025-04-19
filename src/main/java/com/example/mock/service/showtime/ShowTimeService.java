@@ -8,7 +8,6 @@ import com.example.mock.repo.ShowTimeRepository;
 import com.example.mock.service.movie.MovieService;
 import com.example.mock.service.screen.ScreenService;
 import jakarta.transaction.Transactional;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
@@ -17,14 +16,17 @@ import java.util.List;
 @Service
 public class ShowTimeService implements IShowTimeService{
 
-    @Autowired
-    private MovieService movieService;
+    private final MovieService movieService;
 
-    @Autowired
-    private ScreenService screenService;
+    private final ScreenService screenService;
 
-    @Autowired
-    private ShowTimeRepository showTimeRepository;
+    private final ShowTimeRepository showTimeRepository;
+
+    public ShowTimeService(MovieService movieService, ScreenService screenService, ShowTimeRepository showTimeRepository) {
+        this.movieService = movieService;
+        this.screenService = screenService;
+        this.showTimeRepository = showTimeRepository;
+    }
 
     @Override
     public ShowTime getShowTimeById(Integer showTimeId) {

@@ -2,7 +2,6 @@ package com.example.mock.controller;
 
 import com.example.mock.dto.BookingRequestDTO;
 import com.example.mock.service.booking.IBookingService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -12,7 +11,6 @@ public class BookingController {
 
     private final IBookingService bookingService;
 
-    @Autowired
     public BookingController(IBookingService bookingService) {
         this.bookingService = bookingService;
     }

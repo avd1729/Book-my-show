@@ -3,7 +3,6 @@ package com.example.mock.controller;
 import com.example.mock.dto.ScreenDTO;
 import com.example.mock.entity.Screen;
 import com.example.mock.service.screen.ScreenService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -15,8 +14,11 @@ import java.util.List;
 @RequestMapping("/api/screen")
 public class ScreenController {
 
-    @Autowired
-    private ScreenService screenService;
+    private final ScreenService screenService;
+
+    public ScreenController(ScreenService screenService) {
+        this.screenService = screenService;
+    }
 
     @PostMapping("/add")
     @PreAuthorize("hasRole('ADMIN')")

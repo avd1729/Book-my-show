@@ -4,7 +4,6 @@ import com.example.mock.dto.TheaterDTO;
 import com.example.mock.entity.Screen;
 import com.example.mock.entity.Theater;
 import com.example.mock.service.theater.TheaterService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -16,8 +15,11 @@ import java.util.List;
 @RequestMapping("/api/theater")
 public class TheaterController {
 
-    @Autowired
-    private TheaterService theaterService;
+    private final TheaterService theaterService;
+
+    public TheaterController(TheaterService theaterService) {
+        this.theaterService = theaterService;
+    }
 
     @PostMapping("/add")
     @PreAuthorize("hasRole('ADMIN')")

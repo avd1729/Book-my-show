@@ -7,7 +7,6 @@ import com.example.mock.repo.ScreenRepository;
 import com.example.mock.repo.TheaterRepository;
 import com.example.mock.service.theater.TheaterService;
 import jakarta.transaction.Transactional;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -16,14 +15,17 @@ import java.util.List;
 public class ScreenService implements IScreenService{
 
 
-    @Autowired
-    private ScreenRepository screenRepository;
+    private final ScreenRepository screenRepository;
 
-    @Autowired
-    private TheaterRepository theaterRepository;
+    private final TheaterRepository theaterRepository;
 
-    @Autowired
-    private TheaterService theaterService;
+    private final TheaterService theaterService;
+
+    public ScreenService(ScreenRepository screenRepository, TheaterRepository theaterRepository, TheaterService theaterService) {
+        this.screenRepository = screenRepository;
+        this.theaterRepository = theaterRepository;
+        this.theaterService = theaterService;
+    }
 
     @Override
     public Screen addScreen(ScreenDTO screenDTO) {
