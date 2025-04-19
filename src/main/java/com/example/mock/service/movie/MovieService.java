@@ -2,8 +2,10 @@ package com.example.mock.service.movie;
 
 import com.example.mock.dto.MovieDTO;
 import com.example.mock.entity.Movie;
+import com.example.mock.exception.ResourceNotFoundException;
 import com.example.mock.repo.MovieRepository;
 import jakarta.transaction.Transactional;
+import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
@@ -21,10 +23,12 @@ public class MovieService implements IMovieService{
 
     @Override
     public Movie getById(Integer movieId) {
-        return movieRepository.findById(movieId).orElse(null);
+        return movieRepository.findById(movieId)
+                .orElseThrow(() -> new ResourceNotFoundException("Movie not found with id: " + movieId));
     }
 
     @Override
+    @CacheEvict(value = "movies", key = "'all_movies'")
     public Movie addMovie(MovieDTO movieDTO) {
         Movie movie = new Movie();
         movie.setTitle(movieDTO.getTitle());
@@ -42,28 +46,26 @@ public class MovieService implements IMovieService{
     }
 
     @Override
+    @CacheEvict(value = "movies", key = "'all_movies'")
     public Movie updateMovie(MovieDTO movieDTO, Integer movieId) {
         Movie movie = getById(movieId);
-        if(movie != null){
-            movie.setTitle(movieDTO.getTitle());
-            movie.setDescription(movieDTO.getDescription());
-            movie.setGenre(movieDTO.getGenre());
-            movie.setDuration(movieDTO.getDuration());
-            movie.setRating(movieDTO.getRating());
-            movie.setReleaseDate(movieDTO.getReleaseDate());
-            movie.setEndDate(movieDTO.getEndDate());
-            movie.setPosterUrl(movieDTO.getPosterUrl());
-            movie.setBackdropUrl(movieDTO.getBackdropUrl());
-            movie.setTrailerUrl(movieDTO.getTrailerUrl());
-            movie.setLanguage(movieDTO.getLanguage());
-            return movieRepository.save(movie);
-        } else {
-            return null;
-        }
+        movie.setTitle(movieDTO.getTitle());
+        movie.setDescription(movieDTO.getDescription());
+        movie.setGenre(movieDTO.getGenre());
+        movie.setDuration(movieDTO.getDuration());
+        movie.setRating(movieDTO.getRating());
+        movie.setReleaseDate(movieDTO.getReleaseDate());
+        movie.setEndDate(movieDTO.getEndDate());
+        movie.setPosterUrl(movieDTO.getPosterUrl());
+        movie.setBackdropUrl(movieDTO.getBackdropUrl());
+        movie.setTrailerUrl(movieDTO.getTrailerUrl());
+        movie.setLanguage(movieDTO.getLanguage());
+        return movieRepository.save(movie);
     }
 
     @Override
     @Transactional
+    @CacheEvict(value = "movies", key = "'all_movies'")
     public Movie deleteMovie(Integer movieId) {
         Movie movie = getById(movieId);
         movieRepository.deleteMovieById(movieId);
@@ -75,7 +77,6 @@ public class MovieService implements IMovieService{
     public List<Movie> getAllMovies() {
         return movieRepository.findAll();
     }
-
 
     @Override
     @Cacheable(value = "movies", key = "#genre")

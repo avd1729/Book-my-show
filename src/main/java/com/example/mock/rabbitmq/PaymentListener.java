@@ -31,10 +31,8 @@ public class PaymentListener {
     @RabbitListener(queues = "payment.request.queue")
     public void processPayment(PaymentRequestMessage paymentRequest) {
         try {
-            // Retrieve the reservation
             Reservation reservation = reservationService.getReservationById(paymentRequest.getReservationId());
             if (reservation == null) {
-                // Log error and potentially send to a dead letter queue
                 System.err.println("Reservation not found: " + paymentRequest.getReservationId());
                 return;
             }
@@ -49,20 +47,18 @@ public class PaymentListener {
             paymentDTO.setPaymentTime(new Timestamp(paymentRequest.getTimestamp()));
             paymentDTO.setReservationDTO(reservationDTO);
 
-            // Handle actual payment integration here
-            // This could be calling a payment gateway API
             boolean paymentSuccessful = processExternalPayment(paymentDTO);
 
             if (paymentSuccessful) {
                 paymentDTO.setPaymentStatus(PaymentStatus.PAID);
                 Payment payment = paymentService.addPayment(paymentDTO);
-
+                paymentDTO.setPaymentId(payment.getPaymentId());
                 // Update reservation with payment info
                 reservationDTO.setPaymentDTO(paymentDTO);
                 reservationDTO.setReservationStatus(ReservationStatus.CONFIRMED);
                 reservationDTO.setPaymentStatus(PaymentStatus.PAID);
                 reservationService.updateReservation(reservationDTO, reservation.getReservationId());
-                System.out.println("payment successful!");
+                System.out.println("Payment successful!");
             } else {
                 // Payment failed
                 paymentDTO.setPaymentStatus(PaymentStatus.PENDING);
@@ -78,16 +74,12 @@ public class PaymentListener {
             }
 
         } catch (Exception e) {
-            // Log the error
             System.err.println("Error processing payment: " + e.getMessage());
             e.printStackTrace();
-            // Could implement retry mechanism or send to dead letter queue
         }
     }
 
     private boolean processExternalPayment(PaymentDTO paymentDTO) {
-        // Implement actual payment processing logic here
-        // This would typically integrate with a payment gateway
 
         // Simulating payment processing with 95% success rate for demo
         return Math.random() < 0.95;

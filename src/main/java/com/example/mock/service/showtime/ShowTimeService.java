@@ -4,6 +4,7 @@ import com.example.mock.dto.ShowTimeDTO;
 import com.example.mock.entity.Movie;
 import com.example.mock.entity.Screen;
 import com.example.mock.entity.ShowTime;
+import com.example.mock.exception.ResourceNotFoundException;
 import com.example.mock.repo.ShowTimeRepository;
 import com.example.mock.service.movie.MovieService;
 import com.example.mock.service.screen.ScreenService;
@@ -17,9 +18,7 @@ import java.util.List;
 public class ShowTimeService implements IShowTimeService{
 
     private final MovieService movieService;
-
     private final ScreenService screenService;
-
     private final ShowTimeRepository showTimeRepository;
 
     public ShowTimeService(MovieService movieService, ScreenService screenService, ShowTimeRepository showTimeRepository) {
@@ -31,26 +30,32 @@ public class ShowTimeService implements IShowTimeService{
     @Override
     public ShowTime getShowTimeById(Integer showTimeId) {
         return showTimeRepository.findById(showTimeId)
-                .orElseThrow(() -> new RuntimeException("Showtime not found with id: " + showTimeId));
+                .orElseThrow(() -> new ResourceNotFoundException("Showtime not found with id: " + showTimeId));
     }
-
 
     @Override
     public ShowTime addShowTime(ShowTimeDTO showTimeDTO) {
-
         ShowTime showTime = new ShowTime();
         showTime.setStartTime(showTimeDTO.getStartTime());
         showTime.setEndTime(showTimeDTO.getEndTime());
         showTime.setPrice(showTimeDTO.getPrice());
         showTime.setActive(showTime.isActive());
 
+        // Check if movie exists
         Movie movie = movieService.getById(showTimeDTO.getMovieId());
+        if (movie == null) {
+            throw new ResourceNotFoundException("Movie not found with id: " + showTimeDTO.getMovieId());
+        }
         showTime.setMovie(movie);
+
+        // Check if screen exists
         Screen screen = screenService.getScreenById(showTimeDTO.getScreenId());
+        if (screen == null) {
+            throw new ResourceNotFoundException("Screen not found with id: " + showTimeDTO.getScreenId());
+        }
         showTime.setScreen(screen);
 
         return showTimeRepository.save(showTime);
-
     }
 
     @Override
@@ -62,14 +67,23 @@ public class ShowTimeService implements IShowTimeService{
             showTime.setPrice(showTimeDTO.getPrice());
             showTime.setActive(showTime.isActive());
 
+            // Check if movie exists
             Movie movie = movieService.getById(showTimeDTO.getMovieId());
+            if (movie == null) {
+                throw new ResourceNotFoundException("Movie not found with id: " + showTimeDTO.getMovieId());
+            }
             showTime.setMovie(movie);
+
+            // Check if screen exists
             Screen screen = screenService.getScreenById(showTimeDTO.getScreenId());
+            if (screen == null) {
+                throw new ResourceNotFoundException("Screen not found with id: " + showTimeDTO.getScreenId());
+            }
             showTime.setScreen(screen);
 
             return showTimeRepository.save(showTime);
         } else {
-            return null;
+            throw new ResourceNotFoundException("Showtime not found with id: " + showTimeId);
         }
     }
 

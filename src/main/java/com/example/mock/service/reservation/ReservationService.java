@@ -9,17 +9,16 @@ import com.example.mock.repo.ReservationRepository;
 import com.example.mock.service.payment.PaymentService;
 import com.example.mock.service.showtime.ShowTimeService;
 import com.example.mock.service.user.UserService;
+import com.example.mock.exception.ResourceNotFoundException;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
-public class ReservationService implements IReservationService{
+public class ReservationService implements IReservationService {
 
     private final UserService userService;
-
     private final ShowTimeService showTimeService;
-
     private final PaymentService paymentService;
-
     private final ReservationRepository reservationRepository;
 
     public ReservationService(UserService userService, ShowTimeService showTimeService, PaymentService paymentService, ReservationRepository reservationRepository) {
@@ -30,21 +29,32 @@ public class ReservationService implements IReservationService{
     }
 
     @Override
+    @Transactional
     public Reservation addReservation(ReservationDTO reservationDTO) {
+
+        User user = userService.getUserById(reservationDTO.getUserId());
+        if (user == null) {
+            throw new ResourceNotFoundException("User not found with id: " + reservationDTO.getUserId());
+        }
+
+        ShowTime showTime = showTimeService.getShowTimeById(reservationDTO.getShowTimeId());
+        if (showTime == null) {
+            throw new ResourceNotFoundException("ShowTime not found with id: " + reservationDTO.getShowTimeId());
+        }
+
         Reservation reservation = new Reservation();
         reservation.setReservationStatus(reservationDTO.getReservationStatus());
         reservation.setTotalAmount(reservationDTO.getTotalAmount());
         reservation.setPaymentStatus(reservationDTO.getPaymentStatus());
-
-        User user = userService.getUserById(reservationDTO.getUserId());
         reservation.setUser(user);
-
-        ShowTime showTime = showTimeService.getShowTimeById(reservationDTO.getShowTimeId());
         reservation.setShowTime(showTime);
 
-        // 👇 Only set payment if present
+
         if (reservationDTO.getPaymentDTO() != null) {
             Payment payment = paymentService.getPaymentById(reservationDTO.getPaymentDTO().getPaymentId());
+            if (payment == null) {
+                throw new ResourceNotFoundException("Payment not found with id: " + reservationDTO.getPaymentDTO().getPaymentId());
+            }
             reservation.setPayment(payment);
         }
 
@@ -52,31 +62,46 @@ public class ReservationService implements IReservationService{
     }
 
 
+    @Transactional
     public Reservation updateReservation(ReservationDTO reservationDTO, Integer reservationId) {
+
         Reservation reservation = reservationRepository.findById(reservationId).orElse(null);
-        if(reservation != null){
-            reservation.setReservationStatus(reservationDTO.getReservationStatus());
-            reservation.setTotalAmount(reservationDTO.getTotalAmount());
-            reservation.setPaymentStatus(reservationDTO.getPaymentStatus());
-
-            User user = userService.getUserById(reservationDTO.getUserId());
-            reservation.setUser(user);
-
-            ShowTime showTime = showTimeService.getShowTimeById(reservationDTO.getShowTimeId());
-            reservation.setShowTime(showTime);
-
-            Payment payment = paymentService.getPaymentById(reservationDTO.getPaymentDTO().getPaymentId());
-            reservation.setPayment(payment);
-
-            return reservationRepository.save(reservation);
+        if (reservation == null) {
+            throw new ResourceNotFoundException("Reservation not found with id: " + reservationId);
         }
 
-        return null;
 
+        reservation.setReservationStatus(reservationDTO.getReservationStatus());
+        reservation.setTotalAmount(reservationDTO.getTotalAmount());
+        reservation.setPaymentStatus(reservationDTO.getPaymentStatus());
+
+
+        User user = userService.getUserById(reservationDTO.getUserId());
+        if (user == null) {
+            throw new ResourceNotFoundException("User not found with id: " + reservationDTO.getUserId());
+        }
+        reservation.setUser(user);
+
+        ShowTime showTime = showTimeService.getShowTimeById(reservationDTO.getShowTimeId());
+        if (showTime == null) {
+            throw new ResourceNotFoundException("ShowTime not found with id: " + reservationDTO.getShowTimeId());
+        }
+        reservation.setShowTime(showTime);
+
+
+        if (reservationDTO.getPaymentDTO() != null) {
+            Payment payment = paymentService.getPaymentById(reservationDTO.getPaymentDTO().getPaymentId());
+            if (payment == null) {
+                throw new ResourceNotFoundException("Payment not found with id: " + reservationDTO.getPaymentDTO().getPaymentId());
+            }
+            reservation.setPayment(payment);
+        }
+
+        return reservationRepository.save(reservation);
     }
 
     public Reservation getReservationById(int id) {
         return reservationRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Reservation not found"));
+                .orElseThrow(() -> new ResourceNotFoundException("Reservation not found with id: " + id));
     }
 }

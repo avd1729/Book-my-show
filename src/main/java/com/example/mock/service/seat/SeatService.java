@@ -1,9 +1,9 @@
 package com.example.mock.service.seat;
 
-import com.example.mock.dto.SeatDTO;
 import com.example.mock.entity.Seat;
 import com.example.mock.repo.SeatRepository;
 import com.example.mock.scripts.RedisUnlockScript;
+import com.example.mock.exception.ResourceNotFoundException;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
 
@@ -12,12 +12,10 @@ import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 @Service
-public class SeatService implements ISeatService{
+public class SeatService implements ISeatService {
 
     private final SeatRepository seatRepository;
-
     private final RedisTemplate<String, String> redisTemplate;
-
     private final RedisUnlockScript redisUnlockScript;
 
     public SeatService(SeatRepository seatRepository, RedisTemplate<String, String> redisTemplate, RedisUnlockScript redisUnlockScript) {
@@ -39,7 +37,7 @@ public class SeatService implements ISeatService{
             return lockSeat(showtimeId, seatId, userId, ttlSeconds);
         }
 
-        return false;
+        return false; // Seat is locked by another user
     }
 
     public boolean lockSeat(String showtimeId, String seatId, String userId, long ttlSeconds) {
@@ -60,7 +58,6 @@ public class SeatService implements ISeatService{
         return false; // Locked by someone else
     }
 
-
     public boolean unlockSeat(String showtimeId, String seatId, String userId) {
         String redisKey = "seat_lock:" + showtimeId + ":" + seatId;
 
@@ -73,11 +70,9 @@ public class SeatService implements ISeatService{
         return result != null && result == 1;
     }
 
-    public Seat getSeatById(Integer seatId){
-        return seatRepository.findById(seatId).orElse(null);
+    public Seat getSeatById(Integer seatId) {
+        return seatRepository.findById(seatId)
+                .orElseThrow(() -> new ResourceNotFoundException("Seat not found with id: " + seatId));
     }
 
-    public Seat updateSeat(SeatDTO seatDTO, Integer seatId){
-        return null;
-    }
 }
