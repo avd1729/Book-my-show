@@ -37,14 +37,14 @@ public class ShowTimeController {
     @PreAuthorize("hasRole('ADMIN')")
     ResponseEntity<ShowTime> updateShowTime(@RequestBody ShowTimeDTO showTimeDTO, @PathVariable Integer id){
         ShowTime result = showTimeService.updateShowTime(showTimeDTO, id);
-        return ResponseEntity.status(HttpStatus.CREATED).body(result);
+        return ResponseEntity.status(HttpStatus.OK).body(result);
     }
 
     @DeleteMapping("/delete/{id}")
     @PreAuthorize("hasRole('ADMIN')")
     ResponseEntity<ShowTime> deleteShowTime(@PathVariable Integer id){
         ShowTime result = showTimeService.deleteShowTime(id);
-        return ResponseEntity.status(HttpStatus.OK).body(result);
+        return ResponseEntity.status(HttpStatus.GONE).body(result);
 
     }
 

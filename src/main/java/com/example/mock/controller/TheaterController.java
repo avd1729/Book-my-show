@@ -32,7 +32,7 @@ public class TheaterController {
     @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<Theater> updateTheater(@RequestBody TheaterDTO theaterDTO, @PathVariable Integer id){
         Theater result = theaterService.updateTheater(theaterDTO, id);
-        return ResponseEntity.status(HttpStatus.CREATED).body(result);
+        return ResponseEntity.status(HttpStatus.OK).body(result);
     }
 
     @GetMapping("/getAll")
@@ -46,7 +46,7 @@ public class TheaterController {
     @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<Theater> deleteTheater(@PathVariable Integer id){
         Theater result = theaterService.deleteTheater(id);
-        return ResponseEntity.status(HttpStatus.OK).body(result);
+        return ResponseEntity.status(HttpStatus.GONE).body(result);
     }
 
     @GetMapping("/get/{id}")

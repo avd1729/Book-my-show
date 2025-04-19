@@ -39,14 +39,14 @@ public class MovieController {
     @PreAuthorize("hasRole('ADMIN')")
     ResponseEntity<Movie> updateMovie(@RequestBody MovieDTO movieDTO, @PathVariable Integer id){
         Movie result = movieService.updateMovie(movieDTO, id);
-        return ResponseEntity.status(HttpStatus.CREATED).body(result);
+        return ResponseEntity.status(HttpStatus.OK).body(result);
     }
 
     @DeleteMapping("/delete/{id}")
     @PreAuthorize("hasRole('ADMIN')")
     ResponseEntity<Movie> deleteMovie(@PathVariable Integer id){
         Movie result = movieService.deleteMovie(id);
-        return ResponseEntity.status(HttpStatus.FOUND).body(result);
+        return ResponseEntity.status(HttpStatus.GONE).body(result);
     }
 
     @GetMapping("/getByGenre/{genre}")
