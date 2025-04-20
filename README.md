@@ -137,6 +137,29 @@ This mechanism acts like a **lightweight distributed lock**, enabling **safe par
 
 ---
 
+## ⏲️ Scheduled Cleanup of Expired Seat Locks
+
+To maintain **data consistency** and avoid stale seat locks blocking availability, the system includes a **scheduled cleanup task** that runs periodically as a **CRON job** within the Spring Boot application.
+
+#### Why It’s Needed:
+- Seats temporarily locked during the booking process (via Redis + Lua) may remain held if:
+  - The user abandons the payment flow
+  - There’s a failure in communication
+- These stale locks can prevent other users from booking valid seats
+
+#### How It Works:
+- A Spring `@Scheduled` job runs at fixed intervals (e.g., every 5 minutes)
+- It scans Redis for **expired or timed-out seat locks**
+- Removes any that exceed a safe timeout threshold
+- Frees up the seats for other users to book
+
+This cleanup mechanism ensures:
+- **Fresh seat availability**
+- No false positives on “unavailable” seats
+- A seamless and consistent booking experience for users
+
+---
+
 ## 🗃 Data Model Overview
 
 - **User** ↔ `1:N` ↔ **Reservation**
