@@ -13,7 +13,7 @@ services:
       - app-network
 
   server1:
-    build: ./mock
+    build: ./backend
     container_name: server1
     ports:
       - "8001:8080"
@@ -42,7 +42,7 @@ services:
       - app-network
 
   server2:
-    build: ./mock
+    build: ./backend
     container_name: server2
     ports:
       - "8002:8080"
@@ -71,7 +71,7 @@ services:
       - app-network
 
   server3:
-    build: ./mock
+    build: ./backend
     container_name: server3
     ports:
       - "8003:8080"
