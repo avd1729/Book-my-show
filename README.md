@@ -162,12 +162,7 @@ This cleanup mechanism ensures:
 
 ## 🗃 Data Model Overview
 
-- **User** ↔ `1:N` ↔ **Reservation**
-- **Theater** ↔ `1:N` ↔ **Screen**
-- **Screen** ↔ `1:N` ↔ **Seat**
-- **Movie** ↔ `1:N` ↔ **Showtime**
-- **Showtime** ↔ `1:N` ↔ **ReservedSeat**
-- **Reservation** ↔ `1:1` ↔ **Payment**
+![Untitled](https://github.com/user-attachments/assets/d0a64696-d0af-4f32-839a-ae4ed9d27b53)
 
 The schema is normalized and enforces **unique constraints**, **foreign key relationships**, and **cascading deletes** wherever appropriate to maintain data integrity.
 
