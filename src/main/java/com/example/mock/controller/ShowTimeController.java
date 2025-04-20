@@ -30,7 +30,7 @@ public class ShowTimeController {
     @GetMapping("/all")
     ResponseEntity<List<ShowTime>> getAllShowTimes(){
         List<ShowTime> result = showTimeService.getAllShowTimes();
-        return ResponseEntity.status(HttpStatus.FOUND).body(result);
+        return ResponseEntity.status(HttpStatus.OK).body(result);
     }
 
     @PutMapping("/update/{id}")
@@ -44,20 +44,20 @@ public class ShowTimeController {
     @PreAuthorize("hasRole('ADMIN')")
     ResponseEntity<ShowTime> deleteShowTime(@PathVariable Integer id){
         ShowTime result = showTimeService.deleteShowTime(id);
-        return ResponseEntity.status(HttpStatus.GONE).body(result);
+        return ResponseEntity.status(HttpStatus.OK).body(result);
 
     }
 
     @GetMapping("/movie/{id}")
     ResponseEntity<List<ShowTime>> getAllShowTimesByMovie(@PathVariable Integer id){
         List<ShowTime> result = showTimeService.getAllShowTimesByMovie(id);
-        return ResponseEntity.status(HttpStatus.FOUND).body(result);
+        return ResponseEntity.status(HttpStatus.OK).body(result);
     }
 
     @GetMapping("/screen/{id}")
     ResponseEntity<List<ShowTime>> getAllShowTimesByScreen(@PathVariable Integer id){
         List<ShowTime> result = showTimeService.getAllShowTimesByScreen(id);
-        return ResponseEntity.status(HttpStatus.FOUND).body(result);
+        return ResponseEntity.status(HttpStatus.OK).body(result);
     }
 
 }

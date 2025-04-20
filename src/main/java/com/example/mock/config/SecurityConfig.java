@@ -40,7 +40,7 @@ public class SecurityConfig {
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http.csrf().disable()
                 .authorizeHttpRequests()
-                .requestMatchers("/authenticate", "/api/users/register", "/h2-console/**").permitAll()
+                .requestMatchers("/authenticate","/status", "/api/users/register", "/h2-console/**").permitAll()
                 .anyRequest().authenticated()
                 .and()
                 .headers().frameOptions().disable()

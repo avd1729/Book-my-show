@@ -21,7 +21,7 @@ public class SeatController {
     @GetMapping("/active/{id}")
     ResponseEntity<List<Seat>> getSeatsForScreen(@PathVariable Integer id){
         List<Seat> result = seatService.getSeatsForScreen(id);
-        return ResponseEntity.status(HttpStatus.FOUND).body(result);
+        return ResponseEntity.status(HttpStatus.OK).body(result);
     }
 
     @PostMapping("/lock")

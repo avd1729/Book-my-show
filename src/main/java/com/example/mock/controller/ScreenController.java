@@ -24,7 +24,7 @@ public class ScreenController {
     @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<Screen> addScreen(@RequestBody ScreenDTO screenDTO){
         Screen result = screenService.addScreen(screenDTO);
-        return ResponseEntity.status(HttpStatus.CREATED).body(result);
+        return ResponseEntity.status(HttpStatus.OK).body(result);
     }
 
     @PutMapping("/update/{id}")
@@ -38,20 +38,20 @@ public class ScreenController {
     @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<Screen> deleteScreen(@PathVariable Integer id){
         Screen result = screenService.deleteScreen(id);
-        return ResponseEntity.status(HttpStatus.GONE).body(result);
+        return ResponseEntity.status(HttpStatus.OK).body(result);
     }
 
     @GetMapping("/getAll")
     @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<List<Screen>> getAllScreens(){
         List<Screen> result = screenService.getAllScreens();
-        return ResponseEntity.status(HttpStatus.FOUND).body(result);
+        return ResponseEntity.status(HttpStatus.OK).body(result);
     }
 
     @GetMapping("/getAllActive/{id}")
     public ResponseEntity<List<Screen>> getAllActive(@PathVariable Integer id){
         List<Screen> result = screenService.getActiveScreensByTheaterId(id);
-        return ResponseEntity.status(HttpStatus.FOUND).body(result);
+        return ResponseEntity.status(HttpStatus.OK).body(result);
     }
 
 }

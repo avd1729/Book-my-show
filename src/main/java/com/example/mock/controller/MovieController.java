@@ -26,13 +26,13 @@ public class MovieController {
     @PreAuthorize("hasRole('ADMIN')")
     ResponseEntity<Movie> addMovie(@RequestBody MovieDTO movieDTO){
         Movie result = movieService.addMovie(movieDTO);
-        return ResponseEntity.status(HttpStatus.CREATED).body(result);
+        return ResponseEntity.status(HttpStatus.OK).body(result);
     }
 
     @GetMapping("/getAll")
     ResponseEntity<List<Movie>> getAllMovies(){
         List<Movie> result = movieService.getAllMovies();
-        return ResponseEntity.status(HttpStatus.FOUND).body(result);
+        return ResponseEntity.status(HttpStatus.OK).body(result);
     }
 
     @PutMapping("/update/{id}")
@@ -46,31 +46,31 @@ public class MovieController {
     @PreAuthorize("hasRole('ADMIN')")
     ResponseEntity<Movie> deleteMovie(@PathVariable Integer id){
         Movie result = movieService.deleteMovie(id);
-        return ResponseEntity.status(HttpStatus.GONE).body(result);
+        return ResponseEntity.status(HttpStatus.OK).body(result);
     }
 
     @GetMapping("/getByGenre/{genre}")
     ResponseEntity<List<Movie>> getByGenre(@PathVariable String genre){
         List<Movie> result = movieService.getByGenre(genre);
-        return ResponseEntity.status(HttpStatus.FOUND).body(result);
+        return ResponseEntity.status(HttpStatus.OK).body(result);
     }
 
     @GetMapping("/getByLanguage/{language}")
     ResponseEntity<List<Movie>> getByLanguage(@PathVariable String language){
         List<Movie> result = movieService.getByLanguage(language);
-        return ResponseEntity.status(HttpStatus.FOUND).body(result);
+        return ResponseEntity.status(HttpStatus.OK).body(result);
     }
 
     @GetMapping("/getByGenreAndLang/{genre}/{language}")
     ResponseEntity<List<Movie>> getByGenreAndLanguage(@PathVariable String genre, @PathVariable String language){
         List<Movie> result = movieService.getByGenreAndLanguage(genre, language);
-        return ResponseEntity.status(HttpStatus.FOUND).body(result);
+        return ResponseEntity.status(HttpStatus.OK).body(result);
     }
 
     @GetMapping("/date")
     ResponseEntity<List<Movie>> getByDate(@RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)Date date){
         List<Movie> result = movieService.getByDate(date);
-        return ResponseEntity.status(HttpStatus.FOUND).body(result);
+        return ResponseEntity.status(HttpStatus.OK).body(result);
     }
 
 }
